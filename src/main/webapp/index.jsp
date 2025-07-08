@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="zh-CN">
 <head>
+    <meta http-equiv="refresh" content="0;url=getProducts">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电子商城销售管理系统</title>
@@ -209,135 +212,19 @@
             <div class="product-section">
                 <h2 class="product-section-title"><i class="fas fa-pen"></i>所有商品</h2>
 
+                <!-- 商品展示部分 -->
                 <div class="product-container">
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">手泥香酥</h3>
-                            <p class="product-price">¥68.8</p>
+                    <c:forEach var="product" items="${products}">
+                        <div class="product-card">
+                            <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
+                            <div class="product-info">
+                                <h3 class="product-name">${product.product_name}</h3>
+                                <p class="product-price">¥${product.product_price}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">香芋酥</h3>
-                            <p class="product-price">¥72.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">蛋黄酥</h3>
-                            <p class="product-price">¥75.0</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">凤梨酥</h3>
-                            <p class="product-price">¥69.9</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">手泥香酥</h3>
-                            <p class="product-price">¥68.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">香芋酥</h3>
-                            <p class="product-price">¥72.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">蛋黄酥</h3>
-                            <p class="product-price">¥75.0</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">凤梨酥</h3>
-                            <p class="product-price">¥69.9</p>
-                        </div>
-                    </div>                    
-                   <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">手泥香酥</h3>
-                            <p class="product-price">¥68.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">香芋酥</h3>
-                            <p class="product-price">¥72.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">蛋黄酥</h3>
-                            <p class="product-price">¥75.0</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">凤梨酥</h3>
-                            <p class="product-price">¥69.9</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">手泥香酥</h3>
-                            <p class="product-price">¥68.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">香芋酥</h3>
-                            <p class="product-price">¥72.8</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">蛋黄酥</h3>
-                            <p class="product-price">¥75.0</p>
-                        </div>
-                    </div>
-
-                    <div class="product-card">
-                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">凤梨酥</h3>
-                            <p class="product-price">¥69.9</p>
-                        </div>
-                    </div>   
-                </div>                
-                
+                    </c:forEach>
+                </div>
+            
             </div>
         </div>
 
