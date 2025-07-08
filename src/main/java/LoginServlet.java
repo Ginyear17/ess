@@ -3,10 +3,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -29,19 +31,40 @@ public class LoginServlet extends HttpServlet {
 
             if (user != null) {
                 // 登录成功，将用户信息存储在session中
-                req.getSession().setAttribute("user", user);
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user);
+
                 // 创建JSON响应
                 Gson gson = new Gson();
                 String userJson = gson.toJson(user);
 
-                // 检查用户是否为管理员
-                if (user != null && "admin".equals(user.getUserType())) {
-                    // 用户是管理员，告知前端跳转到管理员页面
-                    resp.getWriter().write("{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":true}");
-                } else {
-                    // 用户是普通客户，返回普通响应
-                    resp.getWriter().write("{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":false}");
+                // 获取购物车数据
+                String responseJson = "";
+                try {
+                    List<GetCartItemsServlet.CartItem> cartItems = GetCartItemsServlet.getCartItems(user.getUser_id());
+                    session.setAttribute("cartItems", cartItems);
+
+                    // 检查用户是否为管理员
+                    if ("admin".equals(user.getUserType())) {
+                        // 用户是管理员，告知前端跳转到管理员页面
+                        responseJson = "{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":true,\"cartItems\":"
+                                + gson.toJson(cartItems) + "}";
+                    } else {
+                        // 用户是普通客户，返回普通响应
+                        responseJson = "{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":false,\"cartItems\":"
+                                + gson.toJson(cartItems) + "}";
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // 即使购物车数据获取失败，仍然返回登录成功信息
+                    if ("admin".equals(user.getUserType())) {
+                        responseJson = "{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":true}";
+                    } else {
+                        responseJson = "{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":false}";
+                    }
                 }
+
+                resp.getWriter().write(responseJson);
             } else {
                 // 登录失败
                 resp.getWriter().write("{\"success\":false,\"message\":\"邮箱或密码有误!\"}");
