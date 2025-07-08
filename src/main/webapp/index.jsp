@@ -35,6 +35,7 @@
                     <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
                     <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
                     <li><a href="./pages/moments/index.html" class="nav-link">服装</a></li>
+                    <li><a href="./pages/moments/index.html" class="nav-link">美妆</a></li>
                 </ul>
             </nav>
 
