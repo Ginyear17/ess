@@ -3,7 +3,6 @@
 
 <html lang="zh-CN">
 <head>
-    <!-- <meta http-equiv="refresh" content="0;url=getProducts"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电子商城销售管理系统</title>
@@ -253,17 +252,20 @@
                 <div class="card-content">
                     <h3 class="section-title"><i class="fas fa-shopping-cart"></i> 购物车</h3>
                     <ul class="shopping-list">
-                        <li class="shopping-item">
-                            <a href="https://zaiwen.xueban.org.cn/chat/working-edition" class="shopping-link">在问AI</a>
-                            <i class="fas fa-link shopping-icon"></i>
-                        </li>
-                        <li class="shopping-item">
-                            <a href="https://www.bilibili.com/" class="shopping-link">哔哩哔哩bilibili</a>
-                            <i class="fas fa-link shopping-icon"></i>
-                        </li>
+                        <c:if test="${empty cartItems}">
+                            <li class="shopping-item">购物车为空</li>
+                        </c:if>
+                        <c:forEach var="item" items="${cartItems}">
+                            <li class="shopping-item">
+                                <a href="./product?id=${item.product_id}" class="shopping-link">${item.product_name}</a>
+                                <span class="quantity-badge">${item.quantity}</span>
+                                <i class="fas fa-shopping-bag shopping-icon"></i>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
+
             
         </aside>
     </main>
@@ -307,5 +309,6 @@
     <script src="assets/js/slider.js"></script>
     <script src="assets/js/click-appears.js"></script>
     <script src="assets/js/modal.js"></script>
+    <script src="assets/js/product.js"></script>
 </body>
 </html>
