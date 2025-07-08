@@ -30,11 +30,11 @@
             <!-- Desktop Navigation -->
             <nav class="nav">
                 <ul class="nav-list">
-                <li><a href="./index.html" class="nav-link active">首页</a></li>
-                <li><a href="./pages/board/index.html" class="nav-link">数码</a></li>
-                <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
-                <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
-                <li><a href="./pages/moments/index.html" class="nav-link">服装</a></li>
+                    <li><a href="./index.html" class="nav-link active">首页</a></li>
+                    <li><a href="./pages/board/index.html" class="nav-link">数码</a></li>
+                    <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
+                    <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
+                    <li><a href="./pages/moments/index.html" class="nav-link">服装</a></li>
                 </ul>
             </nav>
 
@@ -407,37 +407,7 @@
     <script src="vendors/jquery-3.6.0.js"></script>
     <script src="assets/js/scripts.js"></script>
     <script src="assets/js/slider.js"></script>
-    <script src="assets/js/modal.js"></script>
     <script src="assets/js/click-appears.js"></script>
-    <script>
-        // 修改为从sessionStorage获取完整用户信息并渲染侧边栏
-        (function() {
-            // 从sessionStorage获取完整用户信息
-            var userInfoStr = sessionStorage.getItem("userInfo");
-            if (userInfoStr) {
-                try {
-                    var userInfo = JSON.parse(userInfoStr);
-                    
-                    // 更新用户名
-                    if (userInfo.user_name) {
-                        document.getElementById("sidebar-username").textContent = userInfo.user_name;
-                    }
-                    
-                    // 更新头像
-                    if (userInfo.avatar_url) {
-                        document.getElementById("sidebar-avatar").src =window.baseUrl + userInfo.avatar_url;
-                    }
-
-                } catch(e) {
-                    console.error("解析用户信息时出错:", e);
-                }
-            } else {
-                // 未登录或无用户信息时显示默认头像和名称
-                document.getElementById("sidebar-avatar").src = "./assets/images/avatars/avatar-main.webp";
-                document.getElementById("sidebar-username").textContent = "未登录";
-            }
-        })();
-
-    </script>
+    <script src="assets/js/modal.js"></script>
 </body>
 </html>
