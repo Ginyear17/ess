@@ -12,38 +12,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 @WebServlet("/getCartItems")
 public class GetCartItemsServlet extends HttpServlet {
-
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        // 获取当前登录的用户
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
         if (user == null) {
-            // 用户未登录，不需要处理
+            // 用户未登录，返回空列表
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("[]");
             return;
         }
 
-        List<CartItem> cartItems = getCartItems(user.getUser_id());
-        request.setAttribute("cartItems", cartItems);
+        try {
+            // 查询购物车数据
+            List<CartItem> cartItems = getCartItems(user.getUser_id());
+
+            // 将购物车数据放入request
+            request.setAttribute("cartItems", cartItems);
+
+            // 转发到JSP页面或返回JSON数据
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            String json = new Gson().toJson(cartItems);
+            response.getWriter().write(json);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 
-    private List<CartItem> getCartItems(int userId) {
-        List<CartItem> cartItems = new ArrayList<>();
+    // 获取购物车数据的方法
+    public static List<CartItem> getCartItems(int userId) throws Exception {
+        List<CartItem> items = new ArrayList<>();
 
         try (Connection conn = JDBCUtil.getConnection()) {
-            String sql = "SELECT c.cart_id, c.product_id, c.quantity, p.product_name " +
+            String sql = "SELECT c.cart_id, c.product_id, p.product_name, c.quantity " +
                     "FROM shopping_cart c " +
                     "JOIN products p ON c.product_id = p.product_id " +
                     "WHERE c.user_id = ?";
 
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, userId);
-
-            ResultSet rs = ps.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 CartItem item = new CartItem();
@@ -51,25 +69,21 @@ public class GetCartItemsServlet extends HttpServlet {
                 item.setProduct_id(rs.getInt("product_id"));
                 item.setProduct_name(rs.getString("product_name"));
                 item.setQuantity(rs.getInt("quantity"));
-
-                cartItems.add(item);
+                items.add(item);
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
-        return cartItems;
+        return items;
     }
 
-    // 内部类，用于存储购物车项目信息
+    // 内部静态类用于表示购物车项
     public static class CartItem {
         private int cart_id;
         private int product_id;
         private String product_name;
         private int quantity;
 
-        // Getters and setters
+        // Getters and Setters
         public int getCart_id() {
             return cart_id;
         }

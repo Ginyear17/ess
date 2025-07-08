@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 @WebServlet("/addToCart")
 public class AddToCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 获取当前登录的用户
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        // 用户未登录，返回需要登录的信息
         if (user == null) {
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -26,14 +27,13 @@ public class AddToCartServlet extends HttpServlet {
             return;
         }
 
-        // 获取商品ID和数量
         int productId = Integer.parseInt(request.getParameter("productId"));
-        int quantity = 1; // 默认加入1个
+        int quantity = 1;
 
         try {
             // 检查购物车是否已有该商品
-            String checkSql = "SELECT * FROM shopping_cart WHERE user_id = ? AND product_id = ?";
             Connection conn = JDBCUtil.getConnection();
+            String checkSql = "SELECT * FROM shopping_cart WHERE user_id = ? AND product_id = ?";
             PreparedStatement checkStmt = conn.prepareStatement(checkSql);
             checkStmt.setInt(1, user.getUser_id());
             checkStmt.setInt(2, productId);
@@ -62,12 +62,18 @@ public class AddToCartServlet extends HttpServlet {
 
             rs.close();
             checkStmt.close();
+
+            // 更新购物车数据
+            List<GetCartItemsServlet.CartItem> cartItems = GetCartItemsServlet.getCartItems(user.getUser_id());
+            request.setAttribute("cartItems", cartItems);
+
             conn.close();
 
             // 返回成功信息
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("{\"success\": true, \"message\": \"添加成功\"}");
+            response.getWriter().write(
+                    "{\"success\": true, \"message\": \"添加成功\", \"cartItems\": " + new Gson().toJson(cartItems) + "}");
 
         } catch (Exception e) {
             e.printStackTrace();
