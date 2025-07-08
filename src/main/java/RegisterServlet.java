@@ -46,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
                 resp.getWriter().write("{\"success\":false,\"message\":\"邮箱已存在，请使用其他邮箱!\"}");
             } else {
                 // 用户不存在，执行注册操作
-                String insertSql = "insert into user(email, user_name, password_hash) values(?, ?, ?)";
+                String insertSql = "insert into user(email, user_name, password) values(?, ?, ?)";
                 // 使用邮箱前缀作为默认用户名
                 // 判断用户名是否为空，为空时使用邮箱前缀作为默认用户名
                 if (username == null || username.trim().isEmpty()) {

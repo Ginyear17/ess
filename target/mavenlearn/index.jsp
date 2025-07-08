@@ -213,8 +213,8 @@
             <div class="card">
                 <div class="user-card-content">
                     <div class="user-header">
-                        <img src="./assets/images/avatars/avatar-main.webp" alt="Profile" class="user-avatar">
-                        <h3 class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
+                        <img id="sidebar-avatar" src="./assets/images/avatars/avatar-main.webp" alt="Profile" class="user-avatar">
+                        <h3 id="sidebar-username" class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
                     </div>
                 </div>
             </div>
@@ -276,5 +276,22 @@
     <script src="assets/js/slider.js"></script>
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/click-appears.js"></script>
+    <script>
+        // 渲染侧边栏用户信息
+        (function() {
+            var userStr = localStorage.getItem("user");
+            if (userStr) {
+                try {
+                    var user = JSON.parse(userStr);
+                    if (user.userName) {
+                        document.getElementById("sidebar-username").textContent = user.userName;
+                    }
+                    if (user.avatarUrl) {
+                        document.getElementById("sidebar-avatar").src = user.avatarUrl;
+                    }
+                } catch(e) {}
+            }
+        })();
+    </script>
 </body>
 </html>

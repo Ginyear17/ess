@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -6,45 +8,37 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
-
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/getUserInfo")
+public class GetUserInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 编码设置
         req.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
 
         try {
-            // 获取请求参数
             String email = req.getParameter("email");
-            String pd = req.getParameter("password");
 
-            // 操作数据库
-            String sql = "select * from user where email=? and password=?";
-            User user = JDBCUtil.queryForObject(sql, User.class, email, pd);
+            // 检查完整的SQL语句，确保查询所有字段
+            String sql = "select * from user where email=?";
+            User user = JDBCUtil.queryForObject(sql, User.class, email);
 
             if (user != null) {
-                // 登录成功
-                req.getSession().setAttribute("user", user);
+                // 打印用户对象信息，便于调试
+                System.out.println("User found: " + user.getEmail() + ", " + user.getUserName());
+
+                // 创建包含完整用户信息的JSON对象
                 Gson gson = new Gson();
                 String userJson = gson.toJson(user);
+
+                // 返回成功响应和用户数据
                 resp.getWriter().write("{\"success\":true,\"user\":" + userJson + "}");
             } else {
-                // 登录失败
-                resp.getWriter().write("{\"success\":false,\"message\":\"邮箱或密码有误!\"}");
+                resp.getWriter().write("{\"success\":false,\"message\":\"未找到该用户信息\"}");
             }
         } catch (Exception e) {
-            // 处理所有异常，确保返回有效的JSON
             resp.getWriter().write("{\"success\":false,\"message\":\"服务器处理异常: " + e.getMessage() + "\"}");
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
     }
 }

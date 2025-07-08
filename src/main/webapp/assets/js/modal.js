@@ -35,6 +35,8 @@ for (var i = 0; i < closeButtons.length; i++) {
   });
 }
 
+
+
 // 获取登录表单提交按钮
 var loginSubmitBtn = document.getElementById("login-submit-btn");
 
@@ -55,6 +57,11 @@ loginSubmitBtn.addEventListener("click", function() {
         try {
           var response = JSON.parse(xhr.responseText);
           if (response.success) {
+            // 登录成功，存储用户信息
+            localStorage.setItem("user", JSON.stringify(response.user));    
+            // 获取用户完整信息并存储到sessionStorage
+            getUserInfoByEmail(response.user.email);   
+
             // 登录成功，刷新页面
             window.location.href = "index.jsp";
           } else {
@@ -113,3 +120,55 @@ registerSubmitBtn.addEventListener("click", function() {
   // 发送请求（需要添加用户名参数）
   xhr.send("username=" + encodeURIComponent(username) + "&email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password) + "&confirmPassword=" + encodeURIComponent(confirmPassword));
 });
+
+
+// 获取存储在localStorage中的用户信息
+const user = JSON.parse(localStorage.getItem("user"));
+console.log(user); // 查看完整对象结构
+
+if (user) {
+  // 用户已登录，可以访问用户信息
+  const email = user.email;
+  console.log(email); // 打印用户的 email
+  
+  // 使用这些信息更新UI
+  // document.getElementById("user-name-display").textContent = userName;
+}
+
+
+// 根据email获取用户完整信息并存入sessionStorage
+function getUserInfoByEmail(email) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "getUserInfo?email=" + encodeURIComponent(email), true);
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      try {
+        var response = JSON.parse(xhr.responseText);
+        if (response.success) {
+          // 打印完整的响应，便于调试
+          console.log("完整响应:", response);
+          
+          // 手动处理属性名映射
+          var user = response.user;
+          // 确保user_name映射到userName (如果需要)
+          if (user.user_name && !user.userName) {
+            user.userName = user.user_name;
+          }
+          
+          // 存储处理后的用户信息
+          sessionStorage.setItem("userInfo", JSON.stringify(user));
+          console.log("用户完整信息已存入sessionStorage:", user);
+          
+          updateUserInterface(user);
+        } else {
+          console.error("获取用户信息失败:", response.message);
+        }
+      } catch (e) {
+        console.error("解析响应时出错:", e);
+      }
+    }
+  };
+  
+  xhr.send();
+}
