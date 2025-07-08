@@ -6,7 +6,7 @@ public class Products {
     private String product_name;
     private String product_description;
     private BigDecimal product_price;
-    private int product_stock_quantity;
+    private int product_stock;
     private String category;
     private String image_url;
     private boolean is_active;
@@ -45,12 +45,12 @@ public class Products {
         this.product_price = product_price;
     }
 
-    public int getProduct_stock_quantity() {
-        return product_stock_quantity;
+    public int getProduct_stock() {
+        return product_stock;
     }
 
-    public void setProduct_stock_quantity(int product_stock_quantity) {
-        this.product_stock_quantity = product_stock_quantity;
+    public void setProduct_stock(int product_stock_quantity) {
+        this.product_stock = product_stock_quantity;
     }
 
     public String getCategory() {
@@ -118,12 +118,12 @@ public class Products {
         this.product_price = product_price;
     }
 
-    public int getProductStockQuantity() {
-        return product_stock_quantity;
+    public int getProductStock() {
+        return product_stock;
     }
 
-    public void setProductStockQuantity(int product_stock_quantity) {
-        this.product_stock_quantity = product_stock_quantity;
+    public void setProductStock(int product_stock_quantity) {
+        this.product_stock = product_stock_quantity;
     }
 
     public String getImageUrl() {
