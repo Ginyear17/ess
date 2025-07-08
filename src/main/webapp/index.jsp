@@ -257,14 +257,25 @@
                         </c:if>
                         <c:forEach var="item" items="${cartItems}">
                             <li class="shopping-item">
-                                <a href="./product?id=${item.product_id}" class="shopping-link">${item.product_name}</a>
-                                <span class="quantity-badge">${item.quantity}</span>
-                                <i class="fas fa-shopping-bag shopping-icon"></i>
+                                <div class="item-info">
+                                    <a href="./product?id=${item.product_id}" class="shopping-link">${item.product_name}</a>
+                                    <span class="quantity-badge">${item.quantity}</span>
+                                </div>
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn decrease-btn" data-id="${item.product_id}">
+                                        <i class="fas fa-minus fa-xs"></i> 
+                                    </button>
+                                    <span class="item-quantity">${item.quantity}</span>
+                                    <button class="quantity-btn increase-btn" data-id="${item.product_id}">
+                                        <i class="fas fa-plus fa-xs"></i>
+                                    </button>
+                                </div>
                             </li>
                         </c:forEach>
                     </ul>
                 </div>
             </div>
+
 
             
         </aside>
