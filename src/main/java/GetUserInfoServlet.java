@@ -25,7 +25,7 @@ public class GetUserInfoServlet extends HttpServlet {
 
             if (user != null) {
                 // 打印用户对象信息，便于调试
-                System.out.println("User found: " + user.getEmail() + ", " + user.getUserName());
+                System.out.println("User found: " + user.getEmail() + ", " + user.getUser_name());
 
                 // 创建包含完整用户信息的JSON对象
                 Gson gson = new Gson();

@@ -10,13 +10,13 @@ public class User {
     private String avatar_url;
 
     // 原有的 Getter 和 Setter 方法（驼峰命名）
-    public int getUserId() {
-        return user_id;
-    }
+    // public int getUserId() {
+    // return user_id;
+    // }
 
-    public void setUserId(int user_id) {
-        this.user_id = user_id;
-    }
+    // public void setUserId(int user_id) {
+    // this.user_id = user_id;
+    // }
 
     public String getEmail() {
         return email;
@@ -34,37 +34,37 @@ public class User {
         this.password = password;
     }
 
-    public String getUserName() {
-        return user_name;
-    }
+    // public String getUserName() {
+    // return user_name;
+    // }
 
-    public void setUserName(String userName) {
-        this.user_name = userName;
-    }
+    // public void setUserName(String userName) {
+    // this.user_name = userName;
+    // }
 
-    public String getUserType() {
-        return user_type;
-    }
+    // public String getUserType() {
+    // return user_type;
+    // }
 
-    public void setUserType(String userType) {
-        this.user_type = userType;
-    }
+    // public void setUserType(String userType) {
+    // this.user_type = userType;
+    // }
 
-    public Date getCreatedAt() {
-        return created_at;
-    }
+    // public Date getCreatedAt() {
+    // return created_at;
+    // }
 
-    public void setCreatedAt(Date createdAt) {
-        this.created_at = createdAt;
-    }
+    // public void setCreatedAt(Date createdAt) {
+    // this.created_at = createdAt;
+    // }
 
-    public String getAvatarUrl() {
-        return avatar_url;
-    }
+    // public String getAvatarUrl() {
+    // return avatar_url;
+    // }
 
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatar_url = avatarUrl;
-    }
+    // public void setAvatarUrl(String avatarUrl) {
+    // this.avatar_url = avatarUrl;
+    // }
 
     // 新增与数据库字段名匹配的 Getter 和 Setter 方法
     public int getUser_id() {

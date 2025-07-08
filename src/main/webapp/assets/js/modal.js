@@ -124,17 +124,6 @@ registerSubmitBtn.addEventListener("click", function() {
 
 // 获取存储在localStorage中的用户信息
 const user = JSON.parse(localStorage.getItem("user"));
-console.log(user); // 查看完整对象结构
-
-if (user) {
-  // 用户已登录，可以访问用户信息
-  const email = user.email;
-  console.log(email); // 打印用户的 email
-  
-  // 使用这些信息更新UI
-  // document.getElementById("user-name-display").textContent = userName;
-}
-
 
 // 根据email获取用户完整信息并存入sessionStorage
 function getUserInfoByEmail(email) {
@@ -151,10 +140,10 @@ function getUserInfoByEmail(email) {
           
           // 手动处理属性名映射
           var user = response.user;
-          // 确保user_name映射到userName (如果需要)
-          if (user.user_name && !user.userName) {
-            user.userName = user.user_name;
-          }
+          // // 确保user_name映射到userName (如果需要)
+          // if (user.user_name && !user.userName) {
+          //   user.userName = user.user_name;
+          // }
           
           // 存储处理后的用户信息
           sessionStorage.setItem("userInfo", JSON.stringify(user));

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="./assets/css/slider.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/click-appears.css">
+    <link rel="stylesheet" href="./assets/css/product.css">
+    <link rel="stylesheet" href="./assets/css/product-posts.css">
 
 </head>
 <body>
@@ -38,7 +40,9 @@
             <div class="header-actions">
                 <button class="icon-btn user-btn" aria-label="个人中心">
                     <img id="user-avatar" src="" alt="用户头像" style="display: none;">
-                    <i id="user-icon" class="fas fa-user-circle"></i>
+                    <div class="user-login-container">
+                        <span id="login-text">登录</span>
+                    </div>
                 </button>
                 <button class="icon-btn search-btn" aria-label="搜索">
                     <i class="fas fa-search"></i>
@@ -198,18 +202,145 @@
                 </div>
             </div>
             
-            <!-- Blog Posts -->
-            <div class="blog-section">
-                <h2 class="blog-section-title"><i class="fas fa-pen"></i>所有商品</h2>
+            <!-- product Posts -->
+            <div class="product-section">
+                <h2 class="product-section-title"><i class="fas fa-pen"></i>所有商品</h2>
 
-                </article>
+                <div class="product-container">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">手泥香酥</h3>
+                            <p class="product-price">¥68.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">香芋酥</h3>
+                            <p class="product-price">¥72.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">蛋黄酥</h3>
+                            <p class="product-price">¥75.0</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">凤梨酥</h3>
+                            <p class="product-price">¥69.9</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">手泥香酥</h3>
+                            <p class="product-price">¥68.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">香芋酥</h3>
+                            <p class="product-price">¥72.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">蛋黄酥</h3>
+                            <p class="product-price">¥75.0</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">凤梨酥</h3>
+                            <p class="product-price">¥69.9</p>
+                        </div>
+                    </div>                    
+                   <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">手泥香酥</h3>
+                            <p class="product-price">¥68.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">香芋酥</h3>
+                            <p class="product-price">¥72.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">蛋黄酥</h3>
+                            <p class="product-price">¥75.0</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">凤梨酥</h3>
+                            <p class="product-price">¥69.9</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=160&h=160&fit=crop" alt="手泥香酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">手泥香酥</h3>
+                            <p class="product-price">¥68.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=160&h=160&fit=crop" alt="香芋酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">香芋酥</h3>
+                            <p class="product-price">¥72.8</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=160&h=160&fit=crop" alt="蛋黄酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">蛋黄酥</h3>
+                            <p class="product-price">¥75.0</p>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=160&h=160&fit=crop" alt="凤梨酥" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">凤梨酥</h3>
+                            <p class="product-price">¥69.9</p>
+                        </div>
+                    </div>   
+                </div>                
                 
             </div>
         </div>
 
         <!-- Sidebar-->
         <aside class="sidebar">
-            <!--Author Card-->
+            <!--user Card-->
             <div class="card">
                 <div class="user-card-content">
                     <div class="user-header">
@@ -277,21 +408,34 @@
     <script src="assets/js/modal.js"></script>
     <script src="assets/js/click-appears.js"></script>
     <script>
-        // 渲染侧边栏用户信息
+        // 修改为从sessionStorage获取完整用户信息并渲染侧边栏
         (function() {
-            var userStr = localStorage.getItem("user");
-            if (userStr) {
+            // 从sessionStorage获取完整用户信息
+            var userInfoStr = sessionStorage.getItem("userInfo");
+            if (userInfoStr) {
                 try {
-                    var user = JSON.parse(userStr);
-                    if (user.userName) {
-                        document.getElementById("sidebar-username").textContent = user.userName;
+                    var userInfo = JSON.parse(userInfoStr);
+                    
+                    // 更新用户名
+                    if (userInfo.user_name) {
+                        document.getElementById("sidebar-username").textContent = userInfo.user_name;
                     }
-                    if (user.avatarUrl) {
-                        document.getElementById("sidebar-avatar").src = user.avatarUrl;
+                    
+                    // 更新头像
+                    if (userInfo.avatar_url) {
+                        document.getElementById("sidebar-avatar").src =window.baseUrl + userInfo.avatar_url;
                     }
-                } catch(e) {}
+
+                } catch(e) {
+                    console.error("解析用户信息时出错:", e);
+                }
+            } else {
+                // 未登录或无用户信息时显示默认头像和名称
+                document.getElementById("sidebar-avatar").src = "./assets/images/avatars/avatar-main.webp";
+                document.getElementById("sidebar-username").textContent = "未登录";
             }
         })();
+
     </script>
 </body>
 </html>
