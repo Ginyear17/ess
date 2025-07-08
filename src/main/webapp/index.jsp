@@ -219,12 +219,20 @@
                         <div class="product-card">
                             <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
                             <div class="product-info">
-                                <h3 class="product-name">${product.product_name}</h3>
-                                <p class="product-price">¥${product.product_price}</p>
+                                <h4 class="product-name">${product.product_name}</h4>
+                                <div class="product-card-footer">
+                                    <p class="product-price">¥${product.product_price}</p>
+                                    <div class="cart-controls">
+                                        <button class="cart-btn add-to-cart" data-id="${product.product_id}">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
+
             
             </div>
         </div>
