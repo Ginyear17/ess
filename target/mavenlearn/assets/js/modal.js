@@ -60,14 +60,20 @@ loginSubmitBtn.addEventListener("click", function() {
           if (response.success) {
             // 登录成功，存储用户信息
             localStorage.setItem("user", JSON.stringify(response.user));    
-            // 获取用户完整信息并存储到sessionStorage
-            getUserInfoByEmail(response.user.email, function() {
-                // 回调函数，确保用户信息已保存后再刷新页面
-                window.location.href = "getProducts";  // 重定向到Servlet而不是JSP
-            });
-            
-            console.log("登录成功"); 
+
+          // 根据用户类型决定跳转
+          if (response.isAdmin) {
+            // 管理员用户，直接跳转到管理页面
+            window.location.href = "admin.jsp";
           } else {
+            // 普通用户，获取用户完整信息并跳转到商品页面
+            getUserInfoByEmail(response.user.email, function() {
+              window.location.href = "getProducts";
+            });
+          }
+          
+          console.log("登录成功");
+        } else {
             console.log("登录失败，显示错误消息"); 
             // 登录失败，显示错误消息
             document.getElementById("login-message").textContent = response.message;

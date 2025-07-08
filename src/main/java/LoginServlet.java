@@ -28,11 +28,20 @@ public class LoginServlet extends HttpServlet {
             User user = JDBCUtil.queryForObject(sql, User.class, email, pd);
 
             if (user != null) {
-                // 登录成功
+                // 登录成功，将用户信息存储在session中
                 req.getSession().setAttribute("user", user);
+                // 创建JSON响应
                 Gson gson = new Gson();
                 String userJson = gson.toJson(user);
-                resp.getWriter().write("{\"success\":true,\"user\":" + userJson + "}");
+
+                // 检查用户是否为管理员
+                if (user != null && "admin".equals(user.getUserType())) {
+                    // 用户是管理员，告知前端跳转到管理员页面
+                    resp.getWriter().write("{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":true}");
+                } else {
+                    // 用户是普通客户，返回普通响应
+                    resp.getWriter().write("{\"success\":true,\"user\":" + userJson + ",\"isAdmin\":false}");
+                }
             } else {
                 // 登录失败
                 resp.getWriter().write("{\"success\":false,\"message\":\"邮箱或密码有误!\"}");
