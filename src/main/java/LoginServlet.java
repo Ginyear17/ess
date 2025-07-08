@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
 
             // 操作数据库
             String sql = "select * from user where email=? and password=?";
+            System.out.println("接收到登录请求 - Email: " + email + ", Password: " + pd);
             User user = JDBCUtil.queryForObject(sql, User.class, email, pd);
 
             if (user != null) {

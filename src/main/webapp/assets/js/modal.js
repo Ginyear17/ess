@@ -45,6 +45,7 @@ loginSubmitBtn.addEventListener("click", function() {
   
   var email = document.querySelector("#login-form input[name='email']").value;
   var password = document.querySelector("#login-form input[name='password']").value;
+  console.log("登录按钮被点击"); // 添加这行来确认事件是否触发
   
   // 创建AJAX请求
   var xhr = new XMLHttpRequest();
@@ -60,15 +61,18 @@ loginSubmitBtn.addEventListener("click", function() {
             // 登录成功，存储用户信息
             localStorage.setItem("user", JSON.stringify(response.user));    
             // 获取用户完整信息并存储到sessionStorage
-            getUserInfoByEmail(response.user.email);   
+            getUserInfoByEmail(response.user.email);  
+            console.log("登录成功"); 
 
-            // 登录成功，刷新页面
+            // 登录成功，刷新页面，重新渲染用户信息
             window.location.href = "index.jsp";
           } else {
+            console.log("登录失败，显示错误消息"); 
             // 登录失败，显示错误消息
             document.getElementById("login-message").textContent = response.message;
           }
         } catch (e) {
+          console.log("登入出错"); 
           // 如果返回的不是JSON，说明可能是重定向或其他响应
           document.getElementById("login-message").textContent = "登录过程中发生错误，请稍后再试";
         }
@@ -149,7 +153,7 @@ function getUserInfoByEmail(email) {
           sessionStorage.setItem("userInfo", JSON.stringify(user));
           console.log("用户完整信息已存入sessionStorage:", user);
           
-          updateUserInterface(user);
+          // updateUserInterface(user);
         } else {
           console.error("获取用户信息失败:", response.message);
         }
@@ -161,3 +165,34 @@ function getUserInfoByEmail(email) {
   
   xhr.send();
 }
+
+
+// 修改为从sessionStorage获取完整用户信息并渲染侧边栏
+// 页面加载时自动触发，所以可以通过刷新触发
+(function() {
+    // 从sessionStorage获取完整用户信息
+    var userInfoStr = sessionStorage.getItem("userInfo");
+    if (userInfoStr) {
+        try {
+            var userInfo = JSON.parse(userInfoStr);
+            console.log("用户完整信息:", userInfo);
+            
+            // 更新用户名
+            if (userInfo.user_name) {
+                document.getElementById("sidebar-username").textContent = userInfo.user_name;
+            }
+            
+            // 更新头像
+            if (userInfo.avatar_url) {
+                document.getElementById("sidebar-avatar").src =window.baseUrl + userInfo.avatar_url;
+            }
+
+        } catch(e) {
+            console.error("解析用户信息时出错:", e);
+        }
+    } else {
+        // 未登录或无用户信息时显示默认头像和名称
+        document.getElementById("sidebar-avatar").src = "./assets/images/avatars/avatar-main.webp";
+        document.getElementById("sidebar-username").textContent = "未登录";
+    }
+})();
