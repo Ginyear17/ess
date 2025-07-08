@@ -100,6 +100,7 @@ body.dark .section-title i {
 }
 
 .shopping-link {
+    font-size: 11px;
     flex: 1; /* 链接占据剩余空间 */
     text-decoration: none; /* 去掉下划线 */
     color: var(--text-color); /* 使用全局文本颜色 */
@@ -116,6 +117,70 @@ body.dark .section-title i {
     top: 75px;
 }
 
+/* 购物车项目样式 */
+.shopping-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+}
+
+.shopping-link {
+    margin-right: 10px;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quantity-badge {
+    display: none; /* 隐藏原始数量标签，因为我们有了数量控件 */
+}
+
+/* 数量控制样式 */
+.quantity-controls {
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+}
+
+.quantity-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 12px;
+}
+
+.quantity-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.item-quantity {
+    /* margin: 0 8px; */
+    min-width: 20px;
+    text-align: center;
+}
+
+.fa-minus {
+    font-size: 10px;
+}
+
+.fa-plus {
+    font-size: 10px;
+}
 
 @keyframes rotate {
     from {

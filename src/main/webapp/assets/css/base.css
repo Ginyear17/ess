@@ -139,9 +139,9 @@ ul {
     background-color: var(--card-bg);
     border-radius: 1rem;
     overflow: auto; /* 启用滚动条 */
-    width: 280px; /* 设置宽度 */
+    /* width: 280px;  */
     max-width: 100%; /* 确保在小屏幕上不会超出容器 */
-    max-height: 410px; /* 设置最大高度 */
+    max-height: 500px; /* 设置最大高度 */
     box-shadow: var(--shadow);
 }
 
