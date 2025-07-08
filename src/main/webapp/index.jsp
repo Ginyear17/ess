@@ -33,6 +33,8 @@
                 <li><a href="./index.html" class="nav-link active">首页</a></li>
                 <li><a href="./pages/board/index.html" class="nav-link">收藏夹</a></li>
                 <li><a href="./pages/moments/index.html" class="nav-link">购物车</a></li>
+                <li><a href="./pages/moments/index.html" class="nav-link">购物车</a></li>
+
                 </ul>
             </nav>
 
