@@ -61,11 +61,12 @@ loginSubmitBtn.addEventListener("click", function() {
             // 登录成功，存储用户信息
             localStorage.setItem("user", JSON.stringify(response.user));    
             // 获取用户完整信息并存储到sessionStorage
-            getUserInfoByEmail(response.user.email);  
+            getUserInfoByEmail(response.user.email, function() {
+                // 回调函数，确保用户信息已保存后再刷新页面
+                window.location.href = "getProducts";  // 重定向到Servlet而不是JSP
+            });
+            
             console.log("登录成功"); 
-
-            // 登录成功，刷新页面，重新渲染用户信息
-            window.location.href = "index.jsp";
           } else {
             console.log("登录失败，显示错误消息"); 
             // 登录失败，显示错误消息
@@ -130,7 +131,7 @@ registerSubmitBtn.addEventListener("click", function() {
 const user = JSON.parse(localStorage.getItem("user"));
 
 // 根据email获取用户完整信息并存入sessionStorage
-function getUserInfoByEmail(email) {
+function getUserInfoByEmail(email, callback) {
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "getUserInfo?email=" + encodeURIComponent(email), true);
   
@@ -139,21 +140,14 @@ function getUserInfoByEmail(email) {
       try {
         var response = JSON.parse(xhr.responseText);
         if (response.success) {
-          // 打印完整的响应，便于调试
-          console.log("完整响应:", response);
-          
-          // 手动处理属性名映射
-          var user = response.user;
-          // // 确保user_name映射到userName (如果需要)
-          // if (user.user_name && !user.userName) {
-          //   user.userName = user.user_name;
-          // }
-          
           // 存储处理后的用户信息
-          sessionStorage.setItem("userInfo", JSON.stringify(user));
-          console.log("用户完整信息已存入sessionStorage:", user);
+          sessionStorage.setItem("userInfo", JSON.stringify(response.user));
+          console.log("用户完整信息已存入sessionStorage:", response.user);
           
-          // updateUserInterface(user);
+          // 执行回调函数
+          if (typeof callback === 'function') {
+            callback();
+          }
         } else {
           console.error("获取用户信息失败:", response.message);
         }
@@ -165,6 +159,7 @@ function getUserInfoByEmail(email) {
   
   xhr.send();
 }
+
 
 
 // 修改为从sessionStorage获取完整用户信息并渲染侧边栏

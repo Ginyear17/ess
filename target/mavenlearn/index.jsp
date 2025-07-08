@@ -3,7 +3,7 @@
 
 <html lang="zh-CN">
 <head>
-    <meta http-equiv="refresh" content="0;url=getProducts">
+    <!-- <meta http-equiv="refresh" content="0;url=getProducts"> -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>电子商城销售管理系统</title>
@@ -33,7 +33,8 @@
             <!-- Desktop Navigation -->
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="./index.html" class="nav-link active">首页</a></li>
+                    <li><a href="./getProducts" class="nav-link active">首页</a></li>
+
                     <li><a href="./pages/board/index.html" class="nav-link">数码</a></li>
                     <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
                     <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
