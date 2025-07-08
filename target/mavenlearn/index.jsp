@@ -31,9 +31,10 @@
             <nav class="nav">
                 <ul class="nav-list">
                 <li><a href="./index.html" class="nav-link active">首页</a></li>
-                <li><a href="./pages/board/index.html" class="nav-link">收藏夹</a></li>
-                <li><a href="./pages/moments/index.html" class="nav-link">购物车</a></li>
-                <li><a href="./pages/moments/index.html" class="nav-link">购物车</a></li>
+                <li><a href="./pages/board/index.html" class="nav-link">数码</a></li>
+                <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
+                <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
+                <li><a href="./pages/moments/index.html" class="nav-link">服装</a></li>
                 </ul>
             </nav>
 
