@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 260px; /* 设置侧边栏的宽度 */
+    width: 250px; /* 设置侧边栏的宽度 */
 }
 
 .user-card-content {
@@ -113,7 +113,7 @@ body.dark .section-title i {
 
 .sidebar .card:nth-child(2) {
     position: sticky;
-    top: 70px;
+    top: 75px;
 }
 
 
