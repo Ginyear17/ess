@@ -382,7 +382,8 @@
     <script src="assets/js/scripts.js"></script>
     <script src="assets/js/slider.js"></script>
     <script src="assets/js/click-appears.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/product.js"></script>
+    <script src="assets/js/login_register.js"></script>
+    <script src="assets/js/shopping_cart.js"></script>
+    <script src="assets/js/checkout.js"></script>
 </body>
 </html>
