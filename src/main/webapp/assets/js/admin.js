@@ -1,21 +1,6 @@
 $(document).ready(function() {
     // 初始化加载数据
     loadDashboardData();
-    
-    // 侧边栏点击事件
-    $('.nav-sidebar a').click(function(e) {
-        e.preventDefault();
-        $('.nav-sidebar li').removeClass('active');
-        $(this).parent().addClass('active');
-        
-        // 根据点击的链接加载相应的数据
-        const target = $(this).data('target');
-        if(target === '#users') {
-            loadUsers();
-        } else if(target === '#products') {
-            loadProducts();
-        }
-    });
 
     // 加载控制台概览数据
     function loadDashboardData() {
@@ -23,129 +8,137 @@ $(document).ready(function() {
             url: 'admin/dashboard',
             type: 'GET',
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 $('#user-count').text(response.userCount || 0);
                 $('#product-count').text(response.productCount || 0);
             },
-            error: function() {
+            error: function () {
                 $('#user-count').text('加载失败');
                 $('#product-count').text('加载失败');
             }
         });
     }
 
+    // 默认加载控制台页面 (这行代码确保页面加载时显示控制台数据)
+    $('.nav-sidebar li:first-child a').click();
+
+
+    //---------------------用户
     // 加载用户数据
-    function loadUsers() {
+    function loadUsersData() {
         $.ajax({
             url: 'admin/users',
             type: 'GET',
             dataType: 'json',
-            success: function(response) {
-                renderUsers(response.users);
+            success: function (users) {
+                var userTable = $('#users-table');
+                userTable.empty();
+                $.each(users, function (index, user) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(user.userId));
+                    row.append($('<td>').text(user.userName));
+                    row.append($('<td>').text(user.email)); // 显示 email
+                    row.append($('<td>').text(user.userType));
+                    row.append($('<td>').text(new Date(user.createdAt).toLocaleString())); // 格式化日期
+                    //  如果需要显示头像，可以在这里添加：
+                    // row.append($('<td>').html('<img src="' + user.avatarUrl + '" alt="Avatar" width="50">'));
+
+                    var actions = $('<td>');
+                    var editButton = $('<button>').addClass('btn btn-primary btn-xs edit-user-btn').text('编辑').data('user', user);
+                    var deleteButton = $('<button>').addClass('btn btn-danger btn-xs delete-user-btn').text('删除').data('user-id', user.userId);
+                    actions.append(editButton).append(deleteButton); // 添加删除按钮
+                    row.append(actions);
+                    userTable.append(row);
+                });
             },
-            error: function() {
-                $('#users-table').html('<tr><td colspan="6" class="text-center">加载用户数据失败</td></tr>');
+            error: function () {
+                alert('加载用户数据失败');
             }
         });
     }
 
-    // 渲染用户列表
-    function renderUsers(users) {
-        if (!users || users.length === 0) {
-            $('#users-table').html('<tr><td colspan="6" class="text-center">没有用户数据</td></tr>');
-            return;
-        }
-
-        let html = '';
-        users.forEach(function(user) {
-            html += '<tr>';
-            html += '<td>' + user.id + '</td>';
-            html += '<td>' + user.userName + '</td>';
-            html += '<td>' + user.email + '</td>';
-            html += '<td>' + (user.isAdmin ? '管理员' : '普通用户') + '</td>';
-            html += '<td>' + new Date(user.registerTime).toLocaleString() + '</td>';
-            html += '<td>';
-            html += '<button class="btn btn-sm btn-primary edit-user-btn" data-id="' + user.id + '">编辑</button> ';
-            html += '<button class="btn btn-sm btn-danger delete-user-btn" data-id="' + user.id + '">删除</button>';
-            html += '</td>';
-            html += '</tr>';
-        });
-
-        $('#users-table').html(html);
-
-        // 绑定编辑用户按钮事件
-        $('.edit-user-btn').click(function() {
-            const userId = $(this).data('id');
-            editUser(userId);
-        });
-
-        // 绑定删除用户按钮事件
-        $('.delete-user-btn').click(function() {
-            const userId = $(this).data('id');
-            if(confirm('确定要删除这个用户吗？')) {
-                deleteUser(userId);
-            }
-        });
-    }
+    // 点击用户管理标签时加载用户数据
+    $('a[data-target="#users"]').on('click', function () {
+        loadUsersData();
+    });
 
     // 编辑用户
-    function editUser(userId) {
-        $.ajax({
-            url: 'admin/user/' + userId,
-            type: 'GET',
-            dataType: 'json',
-            success: function(response) {
-                $('#user-id').val(response.id);
-                $('#user-name').val(response.userName);
-                $('#user-email').val(response.email);
-                $('#user-type').val(response.isAdmin ? 'admin' : 'user');
-                $('#userModalTitle').text('编辑用户');
-                $('#userModal').modal('show');
-            },
-            error: function() {
-                alert('获取用户数据失败');
-            }
-        });
-    }
+    $('#users-table').on('click', '.edit-user-btn', function () {
+        var user = $(this).data('user');
+        $('#user-id').val(user.userId);
+        $('#user-name').val(user.userName);
+        $('#user-email').val(user.email); // 设置 email
+        $('#user-type').val(user.userType);
+        $('#userModal').modal('show');
+    });
 
     // 删除用户
-    function deleteUser(userId) {
+    $('#users-table').on('click', '.delete-user-btn', function () {
+        var userId = $(this).data('user-id');
+        if (confirm("确定要删除该用户吗？")) {  // 添加确认提示
+            $.ajax({
+                url: 'admin/users',
+                type: 'POST',
+                data: {
+                    action: 'delete', // 添加 action 参数
+                    userId: userId
+                },
+                success: function (response) {
+                    loadUsersData(); // 重新加载用户数据
+                    alert("用户删除成功");
+                },
+                error: function (xhr, status, error) {
+                    alert("用户删除失败: " + xhr.responseText);
+                }
+            });
+        }
+        loadDashboardData();
+    });
+
+    // 保存用户修改
+    $('#save-user-btn').on('click', function () {
+        var userId = $('#user-id').val();
+        var userName = $('#user-name').val();
+        var userEmail = $('#user-email').val();
+        var userType = $('#user-type').val();
+
         $.ajax({
-            url: 'admin/user/' + userId,
-            type: 'DELETE',
-            success: function() {
-                alert('用户删除成功');
-                loadUsers();
+            url: 'admin/users',
+            type: 'POST',
+            data: {
+                action: 'update', // 添加 action 参数
+                userId: userId,
+                userName: userName,
+                userEmail: userEmail,
+                userType: userType
             },
-            error: function() {
-                alert('删除用户失败');
+            success: function (response) { // 更新成功后的回调函数
+                $('#userModal').modal('hide'); // 关闭模态框
+                loadUsersData();          // 重新加载用户数据，更新表格
+                alert("用户更新成功");     // 显示成功消息
+            },
+            error: function (xhr, status, error) { // 更新失败后的回调函数
+                alert("用户更新失败: " + xhr.responseText); // 显示错误消息
             }
         });
-    }
+    });
 
-    // 保存用户信息
-    $('#save-user-btn').click(function() {
-        const userId = $('#user-id').val();
-        const userData = {
-            id: userId,
-            userName: $('#user-name').val(),
-            email: $('#user-email').val(),
-            isAdmin: $('#user-type').val() === 'admin'
-        };
+    // 商品管理功能
+    $(document).ready(function() {
+        // 加载商品数据
+        loadProducts();
 
-        $.ajax({
-            url: 'admin/user' + (userId ? '/' + userId : ''),
-            type: userId ? 'PUT' : 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(userData),
-            success: function() {
-                $('#userModal').modal('hide');
-                loadUsers();
-                alert(userId ? '用户更新成功' : '用户添加成功');
-            },
-            error: function() {
-                alert('保存用户信息失败');
-            }
+        // 添加商品按钮点击事件
+        $('#add-product-btn').click(function() {
+            $('#productModalTitle').text('添加商品');
+            $('#product-id').val('');
+            $('#productForm')[0].reset();
+            $('#productModal').modal('show');
+        });
+
+        // 保存商品按钮点击事件
+        $('#save-product-btn').click(function() {
+            saveProduct();
         });
     });
 
@@ -155,155 +148,125 @@ $(document).ready(function() {
             url: 'admin/products',
             type: 'GET',
             dataType: 'json',
-            success: function(response) {
-                renderProducts(response.products);
+            success: function(data) {
+                renderProductsTable(data);
+                // 更新商品总数
+                $('#product-count').text(data.length);
             },
             error: function() {
-                $('#products-table').html('<tr><td colspan="7" class="text-center">加载商品数据失败</td></tr>');
+                alert('加载商品数据失败');
             }
         });
     }
 
-    // 渲染商品列表
-    function renderProducts(products) {
-        if (!products || products.length === 0) {
-            $('#products-table').html('<tr><td colspan="7" class="text-center">没有商品数据</td></tr>');
-            return;
-        }
+    // 渲染商品表格
+    function renderProductsTable(products) {
+        const $tbody = $('#products-table');
+        $tbody.empty();
 
-        let html = '';
         products.forEach(function(product) {
-            html += '<tr>';
-            html += '<td>' + product.id + '</td>';
-            html += '<td>' + product.name + '</td>';
-            html += '<td>￥' + product.price.toFixed(2) + '</td>';
-            html += '<td>' + product.stock + '</td>';
-            html += '<td>' + product.category + '</td>';
-            html += '<td>' + (product.active ? '上架' : '下架') + '</td>';
-            html += '<td>';
-            html += '<button class="btn btn-sm btn-primary edit-product-btn" data-id="' + product.id + '">编辑</button> ';
-            html += '<button class="btn btn-sm btn-danger delete-product-btn" data-id="' + product.id + '">删除</button>';
-            html += '</td>';
-            html += '</tr>';
-        });
+            const $tr = $('<tr>');
+            $tr.append($('<td>').text(product.productId));
+            $tr.append($('<td>').text(product.productName));
+            $tr.append($('<td>').text('¥' + product.productPrice.toFixed(2)));
+            $tr.append($('<td>').text(product.productStock));
+            $tr.append($('<td>').text(product.category));
+            $tr.append($('<td>').text(product.isActive ? '上架' : '下架'));
 
-        $('#products-table').html(html);
+            // 操作按钮
+            const $btnGroup = $('<div>').addClass('btn-group');
+            const $editBtn = $('<button>')
+                .addClass('btn btn-xs btn-primary')
+                .text('编辑')
+                .click(function() {
+                    editProduct(product);
+                });
+            const $deleteBtn = $('<button>')
+                .addClass('btn btn-xs btn-danger')
+                .text('删除')
+                .click(function() {
+                    deleteProduct(product.productId);
+                });
 
-        // 绑定编辑商品按钮事件
-        $('.edit-product-btn').click(function() {
-            const productId = $(this).data('id');
-            editProduct(productId);
-        });
-
-        // 绑定删除商品按钮事件
-        $('.delete-product-btn').click(function() {
-            const productId = $(this).data('id');
-            if(confirm('确定要删除这个商品吗？')) {
-                deleteProduct(productId);
-            }
+            $btnGroup.append($editBtn, $deleteBtn);
+            $tr.append($('<td>').append($btnGroup));
+            $tbody.append($tr);
         });
     }
-
-    // 添加商品按钮点击事件
-    $('#add-product-btn').click(function() {
-        $('#product-id').val('');
-        $('#product-name').val('');
-        $('#product-description').val('');
-        $('#product-price').val('');
-        $('#product-stock').val('');
-        $('#product-category').val('数码');
-        $('#product-image').val('');
-        $('#product-active').prop('checked', true);
-        $('#productModalTitle').text('添加商品');
-        $('#productModal').modal('show');
-    });
 
     // 编辑商品
-    function editProduct(productId) {
+    function editProduct(product) {
+        $('#productModalTitle').text('编辑商品');
+        $('#product-id').val(product.productId);
+        $('#product-name').val(product.productName);
+        $('#product-description').val(product.productDescription);
+        $('#product-price').val(product.productPrice);
+        $('#product-stock').val(product.productStock);
+        $('#product-category').val(product.category);
+        $('#product-image').val(product.imageUrl);
+        $('#product-active').prop('checked', product.isActive);
+
+        $('#productModal').modal('show');
+    }
+
+    // 保存商品
+    function saveProduct() {
+        const productId = $('#product-id').val();
+        const isAdd = productId === '';
+
+        const productData = {
+            productName: $('#product-name').val(),
+            productDescription: $('#product-description').val(),
+            productPrice: $('#product-price').val(),
+            productStock: $('#product-stock').val(),
+            category: $('#product-category').val(),
+            imageUrl: $('#product-image').val(),
+            isActive: $('#product-active').is(':checked'),
+            action: isAdd ? 'add' : 'update'
+        };
+
+        if (!isAdd) {
+            productData.productId = productId;
+        }
+
         $.ajax({
-            url: 'admin/product/' + productId,
-            type: 'GET',
-            dataType: 'json',
-            success: function(product) {
-                $('#product-id').val(product.id);
-                $('#product-name').val(product.name);
-                $('#product-description').val(product.description);
-                $('#product-price').val(product.price);
-                $('#product-stock').val(product.stock);
-                $('#product-category').val(product.category);
-                $('#product-image').val(product.imageUrl);
-                $('#product-active').prop('checked', product.active);
-                $('#productModalTitle').text('编辑商品');
-                $('#productModal').modal('show');
+            url: 'admin/products',
+            type: 'POST',
+            data: productData,
+            success: function(response) {
+                $('#productModal').modal('hide');
+                loadProducts();
+                alert(isAdd ? '商品添加成功' : '商品更新成功');
             },
             error: function() {
-                alert('获取商品数据失败');
+                alert(isAdd ? '商品添加失败' : '商品更新失败');
             }
         });
     }
 
     // 删除商品
     function deleteProduct(productId) {
+        if (!confirm('确定要删除这个商品吗？')) {
+            return;
+        }
+
         $.ajax({
-            url: 'admin/product/' + productId,
-            type: 'DELETE',
-            success: function() {
+            url: 'admin/products',
+            type: 'POST',
+            data: {
+                action: 'delete',
+                productId: productId
+            },
+            success: function(response) {
                 alert('商品删除成功');
                 loadProducts();
             },
             error: function() {
-                alert('删除商品失败');
+                alert('商品删除失败');
             }
         });
     }
 
-    // 保存商品信息
-    $('#save-product-btn').click(function() {
-        const productId = $('#product-id').val();
-        const productData = {
-            id: productId,
-            name: $('#product-name').val(),
-            description: $('#product-description').val(),
-            price: parseFloat($('#product-price').val()),
-            stock: parseInt($('#product-stock').val()),
-            category: $('#product-category').val(),
-            imageUrl: $('#product-image').val(),
-            active: $('#product-active').is(':checked')
-        };
-
-        $.ajax({
-            url: 'admin/product' + (productId ? '/' + productId : ''),
-            type: productId ? 'PUT' : 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(productData),
-            success: function() {
-                $('#productModal').modal('hide');
-                loadProducts();
-                alert(productId ? '商品更新成功' : '商品添加成功');
-            },
-            error: function() {
-                alert('保存商品信息失败');
-            }
-        });
-    });
-
-    // 退出登录按钮点击事件
-    $('#logout-btn').click(function(e) {
-        e.preventDefault();
-        if(confirm('确定要退出登录吗？')) {
-            $.ajax({
-                url: 'logout',
-                type: 'POST',
-                success: function() {
-                    window.location.href = 'index.jsp';
-                },
-                error: function() {
-                    alert('退出失败，请重试');
-                }
-            });
-        }
-    });
-
-    // 默认加载控制台页面
-    $('.nav-sidebar li:first-child a').click();
 });
+
+
