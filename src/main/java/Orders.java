@@ -4,25 +4,32 @@ import java.util.Date;
 public class Orders {
     private int order_id;
     private int user_id;
+    private int product_id;
     private Date order_date;
-    private BigDecimal order_amount;
-    private String status; // enum('pending','shipped','delivered','cancelled')
-    private String shipping_address;
-    private Date created_at;
+    private BigDecimal price;
+    private int quantity;
+    private BigDecimal total;
+    private String real_name;
+    private String phone;
+    private String address;
 
     // 构造函数
     public Orders() {
     }
 
-    public Orders(int order_id, int user_id, Date order_date, BigDecimal order_amount,
-            String status, String shipping_address, Date created_at) {
+    public Orders(int order_id, int user_id, int product_id,
+            Date order_date, BigDecimal price, int quantity,
+            BigDecimal total, String real_name, String phone, String address) {
         this.order_id = order_id;
         this.user_id = user_id;
+        this.product_id = product_id;
         this.order_date = order_date;
-        this.order_amount = order_amount;
-        this.status = status;
-        this.shipping_address = shipping_address;
-        this.created_at = created_at;
+        this.price = price;
+        this.quantity = quantity;
+        this.total = total;
+        this.real_name = real_name;
+        this.phone = phone;
+        this.address = address;
     }
 
     // Getters 和 Setters - 保持两种命名风格
@@ -60,6 +67,23 @@ public class Orders {
         this.user_id = user_id;
     }
 
+    // product_id
+    public int getProduct_id() {
+        return product_id;
+    }
+
+    public int getProductId() {
+        return product_id;
+    }
+
+    public void setProduct_id(int product_id) {
+        this.product_id = product_id;
+    }
+
+    public void setProductId(int product_id) {
+        this.product_id = product_id;
+    }
+
     // order_date
     public Date getOrder_date() {
         return order_date;
@@ -77,63 +101,65 @@ public class Orders {
         this.order_date = order_date;
     }
 
-    // order_amount
-    public BigDecimal getOrder_amount() {
-        return order_amount;
+    // price
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public BigDecimal getOrderAmount() {
-        return order_amount;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setOrder_amount(BigDecimal order_amount) {
-        this.order_amount = order_amount;
+    // quantity
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setOrderAmount(BigDecimal order_amount) {
-        this.order_amount = order_amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    // status
-    public String getStatus() {
-        return status;
+    // total
+    public BigDecimal getTotal() {
+        return total;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
-    // shipping_address
-    public String getShipping_address() {
-        return shipping_address;
+    // real_name
+    public String getReal_name() {
+        return real_name;
     }
 
-    public String getShippingAddress() {
-        return shipping_address;
+    public String getRealName() {
+        return real_name;
     }
 
-    public void setShipping_address(String shipping_address) {
-        this.shipping_address = shipping_address;
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
     }
 
-    public void setShippingAddress(String shipping_address) {
-        this.shipping_address = shipping_address;
+    public void setRealName(String real_name) {
+        this.real_name = real_name;
     }
 
-    // created_at
-    public Date getCreated_at() {
-        return created_at;
+    // phone
+    public String getPhone() {
+        return phone;
     }
 
-    public Date getCreatedAt() {
-        return created_at;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+    // address
+    public String getAddress() {
+        return address;
     }
 
-    public void setCreatedAt(Date created_at) {
-        this.created_at = created_at;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
