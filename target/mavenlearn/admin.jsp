@@ -25,8 +25,8 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">欢迎, ${sessionScope.user.userName}</a></li>
-                    <li><a href="#" id="logout-btn">退出登录</a></li>
+                    <li><a href="#">欢迎管理员！</a></li>
+                    <li><a href="index.jsp" id="logout-btn">退出登录</a></li>
                 </ul>
             </div>
         </div>
@@ -238,5 +238,27 @@
     <script src="./vendors/jquery-3.6.0.js"></script>
     <script src="./vendors/bootstrap-3.4.1/dist/js/bootstrap.min.js"></script>
     <script src="./assets/js/admin.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#logout-btn").click(function(event) {
+                // 阻止默认链接行为
+                event.preventDefault();
+
+                // 执行登出操作，例如清除 session
+                $.ajax({
+                    url: "logoutServlet", // 替换成你的登出 servlet 的 URL
+                    type: "POST",
+                    success: function() {
+                        // 跳转到 index.jsp
+                        window.location.href = "index.jsp";
+                    },
+                    error: function() {
+                        alert("登出失败！");
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>
