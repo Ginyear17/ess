@@ -46,13 +46,7 @@ $(document).ready(function() {
                 alert('添加失败，请重试');
             }
         });
-    });
-    
-    // 检查用户是否登录的函数
-    function isUserLoggedIn() {
-        // 检查sessionStorage中是否存在userInfo数据
-        return sessionStorage.getItem("userInfo") !== null;
-    }
+    }); 
 
     // 购物车数量增加按钮点击事件
     $(document).on('click', '.increase-btn', function() {
@@ -331,10 +325,8 @@ function processOrder() {
     });
 }
 
-// 检查用户是否登录
+// 检查用户是否登录的函数
 function isUserLoggedIn() {
-    const userInfoStr = sessionStorage.getItem("userInfo");
-    return userInfoStr !== null;
+    // 检查sessionStorage中是否存在userInfo数据
+    return sessionStorage.getItem("userInfo") !== null;
 }
-
-
