@@ -43,7 +43,7 @@
 }
 
 .card-content {
-    padding: 0.9rem 1.4rem;
+    padding: 0.9rem 1.2rem;
 }
 
 .section-title {
@@ -202,11 +202,11 @@ body.dark .section-title i {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 10px 0 0 0;
 }
 
 .total-amount {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
 }
 
