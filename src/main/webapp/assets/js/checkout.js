@@ -107,16 +107,30 @@ function processOrder() {
         return;
     }
     
+    // 获取结算项目的数据
+    const checkoutItems = document.querySelectorAll('.checkout-item');
+    const items = [];
+    
+    checkoutItems.forEach(item => {
+        items.push({
+            product_id: item.dataset.id,
+            quantity: parseInt(item.querySelector('.checkout-item-quantity').textContent.replace('x', '')),
+            price: parseFloat(item.querySelector('.checkout-item-price').textContent.replace('¥', ''))
+        });
+    });
+    
     // 提交订单数据
     $.ajax({
         url: 'placeOrder',
         type: 'POST',
-        contentType: 'application/json',
+        contentType: 'application/json; charset=utf-8',  // 修改此行，明确指定编码
+        dataType: 'json',  // 添加此行，确保jQuery正确解析JSON响应
         data: JSON.stringify({
             recipient: recipientName,
             phone: phone,
             address: address,
-            paymentMethod: paymentMethod
+            paymentMethod: paymentMethod,
+            items: items  // 添加所有商品项信息
         }),
         success: function(response) {
             if (response.success) {
@@ -129,7 +143,7 @@ function processOrder() {
                 $('#cart-total').text('0.00');
                 
                 // 重定向到订单确认页面或者回到首页
-                window.location.href = 'orderConfirmation?orderId=' + response.orderId;
+                window.location.href = 'getProducts'; // 直接返回商品页面
             } else {
                 // 显示错误信息
                 document.getElementById('checkout-message').textContent = response.message || '订单提交失败，请重试';
