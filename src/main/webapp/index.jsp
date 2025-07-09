@@ -32,15 +32,15 @@
             <!-- Desktop Navigation -->
             <nav class="nav">
                 <ul class="nav-list">
-                    <li><a href="./getProducts" class="nav-link active">首页</a></li>
-
-                    <li><a href="./pages/board/index.html" class="nav-link">数码</a></li>
-                    <li><a href="./pages/moments/index.html" class="nav-link">家电</a></li>
-                    <li><a href="./pages/moments/index.html" class="nav-link">家具</a></li>
-                    <li><a href="./pages/moments/index.html" class="nav-link">服装</a></li>
-                    <li><a href="./pages/moments/index.html" class="nav-link">美妆</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link active" data-category="all">首页</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" data-category="数码">数码</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" data-category="家电">家电</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" data-category="家具">家具</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" data-category="服装">服装</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" data-category="美妆">美妆</a></li>
                 </ul>
             </nav>
+
 
             <!-- Header Actions -->
             <div class="header-actions">
@@ -272,12 +272,13 @@
                 <!-- 商品展示部分 -->
                 <div class="product-container">
                     <c:forEach var="product" items="${products}">
-                        <div class="product-card">
+                        <div class="product-card" data-category="${product.category}">
                             <img src="${product.image_url}" alt="${product.product_name}" class="product-image">
                             <div class="product-info">
                                 <h4 class="product-name">${product.product_name}</h4>
                                 <div class="product-card-footer">
                                     <p class="product-price">¥${product.product_price}</p>
+                                    <span class="product-category" style="display:none;">${product.category}</span>
                                     <div class="cart-controls">
                                         <button class="cart-btn add-to-cart" data-id="${product.product_id}">
                                             <i class="fas fa-cart-plus"></i>
@@ -386,5 +387,6 @@
     <script src="assets/js/login_register.js"></script>
     <script src="assets/js/shopping_cart.js"></script>
     <script src="assets/js/checkout.js"></script>
+    <script src="assets/js/category.js"></script>
 </body>
 </html>

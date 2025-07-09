@@ -27,7 +27,7 @@ public class JDBCUtil {
     /**
      * 连接数据库地址
      */
-    public static final String URL = "jdbc:mysql://localhost:3306/electronic_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC";
+    public static final String URL = "jdbc:mysql://192.168.159.228:3306/electronic_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC";
     /**
      * 数据库用户名
      */
