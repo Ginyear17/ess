@@ -94,7 +94,7 @@
                         <input type="password" id="password" name="password" required>
                     </div>
                 </div>
-                <!-- 替换这两行 -->
+
                 <div id="login-message" class="message"></div>
                 <div class="button-group">
                     <button type="button" id="register-btn">注册</button>
@@ -138,6 +138,63 @@
             </form>
         </div>
     </div>
+
+    <!-- 结算模态框 -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>订单结算</h2>
+            <div id="checkout-items-container">
+                <h3>商品清单</h3>
+                <div class="checkout-items">
+                    <!-- 商品列表将通过 JavaScript 动态生成 -->
+                </div>
+            </div>
+            <div class="checkout-summary">
+                <div class="checkout-total">
+                    <span>总金额:</span>
+                    <span class="price">¥<span id="checkout-total">0.00</span></span>
+                </div>
+                <div class="checkout-address">
+                    <h3>收货地址</h3>
+                    <div class="form-group">
+                        <div class="label-group">
+                            <label for="recipient-name">收件人</label>
+                            <input type="text" id="recipient-name" name="recipient-name" required>
+                        </div>
+                        <div class="label-group">
+                            <label for="phone">联系电话</label>
+                            <input type="text" id="phone" name="phone" required>
+                        </div>
+                        <div class="label-group">
+                            <label for="address">详细地址</label>
+                            <textarea id="address" name="address" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-method">
+                    <h3>支付方式</h3>
+                    <div class="payment-options">
+                        <label>
+                            <input type="radio" name="payment" value="alipay" checked> 支付宝
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="wechat"> 微信支付
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="cod"> 货到付款
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div id="checkout-message" class="message"></div>
+            <div class="button-group">
+                <button type="button" id="cancel-checkout-btn">取消</button>
+                <button type="button" id="confirm-checkout-btn">确认订单</button>
+            </div>
+        </div>
+    </div>
+
 
 
     <main class="main">
