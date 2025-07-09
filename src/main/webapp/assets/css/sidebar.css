@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    width: 250px; /* 设置侧边栏的宽度 */
+    width: 270px; /* 设置侧边栏的宽度 */
 }
 
 .user-card-content {
@@ -88,22 +88,26 @@ body.dark .section-title i {
     border-bottom: none;
 }
 
-.shopping-post-link {
+/* .shopping-post-link {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
-}
+} */
 
 .shopping-list {
     margin-top: 1rem;
 }
 
 .shopping-link {
+    width: 96px;
     font-size: 11px;
     flex: 1; /* 链接占据剩余空间 */
     text-decoration: none; /* 去掉下划线 */
     color: var(--text-color); /* 使用全局文本颜色 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .shopping-icon {
@@ -129,14 +133,6 @@ body.dark .section-title i {
 .item-info {
     display: flex;
     align-items: center;
-}
-
-.shopping-link {
-    margin-right: 10px;
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .quantity-badge {
@@ -174,13 +170,66 @@ body.dark .section-title i {
     text-align: center;
 }
 
-.fa-minus {
-    font-size: 10px;
+.quantity-btn.decrease-btn,
+.quantity-btn.increase-btn {
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.fa-plus {
-    font-size: 10px;
+/* 如果按钮仍然太大，可以减小内边距 */
+.quantity-btn {
+    padding: 2px;
 }
+
+/* 减小图标大小 */
+.quantity-btn i {
+    font-size: 8px;
+}
+
+
+.price-badge{
+    font-size: 12px;
+    width: 56px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checkout-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.total-amount {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.total-amount .price {
+    color: #e74c3c;
+    margin-left: 5px;
+}
+
+.checkout-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.checkout-btn:hover {
+    background-color: #c0392b;
+}
+
 
 @keyframes rotate {
     from {

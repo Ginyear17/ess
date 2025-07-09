@@ -1,4 +1,20 @@
 $(document).ready(function() {
+    // 在页面加载时获取购物车数据
+    if(isUserLoggedIn()) {
+        // 发送请求获取购物车数据
+        $.ajax({
+            url: 'getCartItems',
+            type: 'GET',
+            success: function(cartItems) {
+                // 更新购物车显示
+                updateShoppingCartDisplay(cartItems);
+            },
+            error: function() {
+                console.log('获取购物车数据失败');
+            }
+        });
+    }
+
     // 添加到购物车
     $('.add-to-cart').click(function() {
         const productId = $(this).data('id');
@@ -112,3 +128,81 @@ function updateShoppingCartDisplay(cartItems) {
 
 
 }
+
+
+// 计算并更新购物车总金额
+function updateCartTotal(cartItems) {
+    let total = 0;
+    
+    if (cartItems && cartItems.length > 0) {
+        cartItems.forEach(function(item) {
+            // 使用product_price而不是price
+            if (item.product_price) {
+                total += parseFloat(item.product_price) * item.quantity;
+            }
+        });
+    }
+    
+    // 更新总金额显示
+    $('#cart-total').text(total.toFixed(2));
+}
+
+
+// 在更新购物车显示函数中调用总金额更新
+function updateShoppingCartDisplay(cartItems) {
+    const shoppingList = $('.shopping-list');
+    shoppingList.empty();
+    
+    if (!cartItems || cartItems.length === 0) {
+        shoppingList.append('<li class="shopping-item">购物车为空</li>');
+        // 更新总金额为0
+        updateCartTotal([]);
+        return;
+    }
+    
+    // 遍历购物车项目并添加到列表
+    cartItems.forEach(function(item) {
+        const itemHtml = `
+            <li class="shopping-item">
+                <div class="item-info">
+                    <a href="./product?id=${item.product_id}" class="shopping-link">${item.product_name}</a>
+                    <span class="quantity-badge">${item.quantity}</span>
+                    <span class="price-badge">¥${parseFloat(item.product_price).toFixed(2)}</span>
+                </div>
+                <div class="quantity-controls">
+                    <button class="quantity-btn decrease-btn" data-id="${item.product_id}">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <span class="item-quantity">${item.quantity}</span>
+                    <button class="quantity-btn increase-btn" data-id="${item.product_id}">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </li>
+        `;
+        shoppingList.append(itemHtml);
+    });
+    
+    // 更新总金额
+    updateCartTotal(cartItems);
+}
+
+
+// 结算按钮点击事件
+$(document).on('click', '#checkout-btn', function() {
+    // 检查用户是否登录
+    if(!isUserLoggedIn()) {
+        alert('请先登入');
+        return;
+    }
+    
+    // 检查购物车是否为空
+    if($('#cart-total').text() === '0.00') {
+        alert('购物车为空，无法结算');
+        return;
+    }
+    
+    // 跳转到结算页面或执行结算逻辑
+    window.location.href = 'checkout.jsp';
+});
+
