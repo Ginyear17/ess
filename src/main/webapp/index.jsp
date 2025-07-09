@@ -260,6 +260,7 @@
                                 <div class="item-info">
                                     <a href="./product?id=${item.product_id}" class="shopping-link">${item.product_name}</a>
                                     <span class="quantity-badge">${item.quantity}</span>
+                                    <span class="price-badge"></span>
                                 </div>
                                 <div class="quantity-controls">
                                     <button class="quantity-btn decrease-btn" data-id="${item.product_id}">
@@ -273,11 +274,17 @@
                             </li>
                         </c:forEach>
                     </ul>
+                    <div class="checkout-container">
+                        <div class="total-amount">
+                            <span>总金额:</span>
+                            <span class="price">¥<span id="cart-total">0.00</span></span>
+                        </div>
+                        <button id="checkout-btn" class="checkout-btn">
+                            <i class="fas fa-shopping-cart"></i> 结算
+                        </button>
+                    </div>
                 </div>
             </div>
-
-
-            
         </aside>
     </main>
 
