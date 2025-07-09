@@ -12,6 +12,7 @@ public class Orders {
     private String real_name;
     private String phone;
     private String address;
+    private String payment_method;
 
     // 构造函数
     public Orders() {
@@ -19,7 +20,8 @@ public class Orders {
 
     public Orders(int order_id, int user_id, int product_id,
             Date order_date, BigDecimal price, int quantity,
-            BigDecimal total, String real_name, String phone, String address) {
+            BigDecimal total, String real_name, String phone,
+            String address, String payment_method) {
         this.order_id = order_id;
         this.user_id = user_id;
         this.product_id = product_id;
@@ -30,6 +32,7 @@ public class Orders {
         this.real_name = real_name;
         this.phone = phone;
         this.address = address;
+        this.payment_method = payment_method;
     }
 
     // Getters 和 Setters - 保持两种命名风格
@@ -161,5 +164,22 @@ public class Orders {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    // payment_method
+    public String getPayment_method() {
+        return payment_method;
+    }
+
+    public String getPaymentMethod() {
+        return payment_method;
+    }
+
+    public void setPayment_method(String payment_method) {
+        this.payment_method = payment_method;
+    }
+
+    public void setPaymentMethod(String payment_method) {
+        this.payment_method = payment_method;
     }
 }
