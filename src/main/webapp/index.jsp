@@ -217,6 +217,46 @@
         </div>
     </div>
 
+    <!-- 修改个人信息模态框 -->
+    <div id="profile-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>修改个人信息</h2>
+            <form id="profile-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <div class="avatar-upload">
+                        <label for="avatar-upload">头像</label>
+                        <div class="avatar-preview">
+                            <img id="avatar-preview" src="./assets/images/avatars/OIP-C.webp" alt="头像预览">
+                        </div>
+                        <input type="file" id="avatar-upload" name="avatar" accept="image/*">
+                    </div>
+                    <div class="label-group">
+                        <label for="update-username">用户名</label>
+                        <input type="text" id="update-username" name="username" required>
+                    </div>
+                    <div class="label-group">
+                        <label for="current-password">当前密码</label>
+                        <input type="password" id="current-password" name="currentPassword">
+                    </div>
+                    <div class="label-group">
+                        <label for="new-profile-password">新密码</label>
+                        <input type="password" id="new-profile-password" name="newPassword">
+                    </div>
+                    <div class="label-group">
+                        <label for="confirm-profile-password">确认新密码</label>
+                        <input type="password" id="confirm-profile-password" name="confirmPassword">
+                    </div>
+                </div>
+                <div id="profile-message" class="message"></div>
+                <div class="button-group">
+                    <button type="button" id="cancel-profile-btn">取消</button>
+                    <button type="button" id="save-profile-btn">保存修改</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <main class="main">
         <div class="main-card">
@@ -319,11 +359,17 @@
             <div class="card">
                 <div class="user-card-content">
                     <div class="user-header">
-                        <img id="sidebar-avatar" src="./assets/images/avatars/avatar-main.webp" alt="Profile" class="user-avatar">
+                        <img id="sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar">
                         <h3 id="sidebar-username" class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
                     </div>
                     <div class="user-actions" id="user-actions">
                         <!-- 这里的按钮将根据登录状态动态显示 -->
+                    </div>
+                    <div class="user-actions" id="user-actions">
+                        <!-- 这里的按钮将根据登录状态动态显示 -->
+                        <button id="edit-profile-btn" class="user-action-btn">
+                            <i class="fas fa-user-edit"></i> 修改个人信息
+                        </button>
                     </div>
                 </div>
             </div>
@@ -412,5 +458,6 @@
     <script src="assets/js/checkout.js"></script>
     <script src="assets/js/category.js"></script>
     <script src="assets/js/orders.js"></script>
+    <script src="assets/js/profile.js"></script>
 </body>
 </html>

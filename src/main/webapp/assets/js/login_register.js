@@ -359,7 +359,7 @@ function updateUserCard(userInfo) {
     } else {
         // 用户未登录
         $('#sidebar-username').text('访客');
-        $('#sidebar-avatar').attr('src', './assets/images/avatars/avatar-main.webp');
+        $('#sidebar-avatar').attr('src', './assets/images/avatars/OIP-C.webp');
         $('#user-actions').empty();
     }
 }
