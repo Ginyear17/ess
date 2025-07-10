@@ -23,7 +23,7 @@ public class DashboardServlet extends HttpServlet {
 
         try {
             // 统计用户数量
-            String userCountSql = "SELECT COUNT(*) FROM users";
+            String userCountSql = "SELECT COUNT(*) FROM user";
             int userCount = JDBCUtil.queryForCount(userCountSql);
 
             // 统计商品种类数量
