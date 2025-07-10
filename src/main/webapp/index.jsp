@@ -121,12 +121,12 @@
                         <label for="new-email">邮 箱</label>
                         <div style="display: flex; gap: 10px;">
                             <input type="email" id="new-email" name="new-email" required style="flex: 1;">
-                            <button type="button" id="send-code-btn" class="btn-send-code">发送验证码</button>
                         </div>
                     </div>
                     <div class="label-group">
                         <label for="verification-code">验证码</label>
                         <input type="text" id="verification-code" name="verification-code" required>
+                        <button type="button" id="send-code-btn" class="btn-send-code">发送验证码</button>
                     </div>
             
                     <div class="label-group">
