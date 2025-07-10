@@ -98,6 +98,10 @@ body.dark .nav-link:hover, body.dark .nav-link.active {
     color: var(--primary-dark);
 }
 
+.icon-btn user-btn{
+    width: 100px;
+}
+
 /* Mobile menu */
 .mobile-menu {
     position: fixed;
@@ -184,6 +188,10 @@ body.dark .nav-link:hover, body.dark .nav-link.active {
     object-fit: cover;
 }
 
+#login-text{
+    width: 100px;
+}
+
 /* 退出登录时的样式 */
 .user-btn.logged-in:hover #login-text {
     color: var(--error-color);
@@ -213,7 +221,7 @@ body.dark .nav-link:hover, body.dark .nav-link.active {
     }
 
     .logo-text{
-        font-size: 1rem;
+        font-size: 0.6rem;
         font-weight: bold;
     }
 

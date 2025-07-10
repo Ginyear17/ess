@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="./assets/css/slider.css">
     <link rel="stylesheet" href="./assets/css/modal.css">
     <link rel="stylesheet" href="./assets/css/click-appears.css">
-    <link rel="stylesheet" href="./assets/css/product.css">
     <link rel="stylesheet" href="./assets/css/product-posts.css">
     <link rel="stylesheet" href="./assets/css/orders.css">
 
@@ -45,10 +44,8 @@
 
             <!-- Header Actions -->
             <div class="header-actions">
-                <button class="icon-btn user-btn" aria-label="个人中心">
-                    <div class="user-login-container">
-                        <span id="login-text">登录</span>
-                    </div>
+                <button class="icon-btn user-btn" aria-label="个人中心" id="login-text">
+                        登录
                 </button>
                 <button class="icon-btn search-btn" aria-label="搜索">
                     <i class="fas fa-search"></i>
@@ -355,7 +352,7 @@
             <div class="card">
                 <div class="user-card-content">
                     <div class="user-header">
-                        <img id="sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar">
+                        <img id="sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar", id="user-avatar">
                         <h3 id="sidebar-username" class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
                     </div>
                     <div class="user-actions" id="user-actions">
