@@ -231,6 +231,53 @@ body.dark .section-title i {
 }
 
 
+/* 移动菜单样式调整 */
+.mobile-menu {
+    width: 85%;
+    max-width: 320px;
+    height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+.mobile-nav {
+    margin-bottom: 20px;
+}
+
+.mobile-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 12px 15px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color 0.3s;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+    background-color: var(--hover-color);
+}
+
+.mobile-card {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px 10px;
+    overflow: hidden;
+}
+
+.mobile-shopping-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+
 @keyframes rotate {
     from {
         transform: rotate(0deg);

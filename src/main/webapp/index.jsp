@@ -61,7 +61,7 @@
     </header>
 
     <!--Mobile Menu-->
-    <div class=" overlay"></div>
+    <div class="overlay"></div>
     <div class="mobile-menu">
         <div class="mobile-menu-header">
             <h3>菜单</h3>
@@ -69,12 +69,40 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <ul class="mobile-menu-list">
-            <li class="mobile-menu-item"><a href="./index.html" class="mobile-menu-link">首页</a></li>
-            <li class="mobile-menu-item"><a href="./pages/board/index.html" class="mobile-menu-link">收藏夹</a></li>
-            <li class="mobile-menu-item"><a href="./pages/moments/index.html" class="mobile-menu-link">购物车</a></li>
-        </ul>
+
+        <!-- 用户信息卡片 -->
+        <div class="mobile-card">
+            <div class="user-card-content">
+                <div class="user-header">
+                    <img id="mobile-sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar">
+                    <h3 id="mobile-sidebar-username" class="user-name">访客</h3>
+                </div>
+                <div class="user-actions" id="mobile-user-actions">
+                    <!-- 这里的按钮将根据登录状态动态显示 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 购物车卡片 -->
+        <div class="mobile-card">
+            <div class="card-content">
+                <h3 class="section-title"><i class="fas fa-shopping-cart"></i> 购物车</h3>
+                <ul class="shopping-list mobile-shopping-list">
+                    <!-- 购物车内容将通过JavaScript动态生成 -->
+                </ul>
+                <div class="checkout-container">
+                    <div class="total-amount">
+                        <span>总金额:</span>
+                        <span class="price">¥<span id="mobile-cart-total">0.00</span></span>
+                    </div>
+                    <button id="mobile-checkout-btn" class="checkout-btn">
+                        <i class="fas fa-shopping-cart"></i> 结算
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
+
 
     <!-- 登录模态框 -->
     <div id="login-modal" class="modal">
@@ -358,7 +386,7 @@
                     <div class="user-actions" id="user-actions">
                         <!-- 这里的按钮将根据登录状态动态显示 -->
                     </div>
-                    <div class="user-actions" id="user-actions">
+                    <div class="user-actions" id="user-profile-actions">
                         <!-- 这里的按钮将根据登录状态动态显示 -->
                         <button id="edit-profile-btn" class="user-action-btn">
                             <i class="fas fa-user-edit"></i> 修改个人信息

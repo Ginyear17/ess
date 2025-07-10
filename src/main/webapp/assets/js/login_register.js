@@ -270,16 +270,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginText = document.getElementById('login-text');
     const userAvatar = document.getElementById('sidebar-avatar');
     
+    // 移动端元素
+    const mobileLoginText = document.querySelector('.mobile-menu #login-text');
+    const mobileUserAvatar = document.getElementById('mobile-sidebar-avatar');
+    
     if (userInfoStr) {
         // 用户已登录，修改按钮显示
-        loginText.textContent = "退出登录";
+        if (loginText) loginText.textContent = "退出登录";
+        if (mobileLoginText) mobileLoginText.textContent = "退出登录";
         
         // 如果有头像，显示头像
         try {
             const userInfo = JSON.parse(userInfoStr);
             if (userInfo.avatar_url) {
-                userAvatar.src = window.baseUrl + userInfo.avatar_url;
-                userAvatar.style.display = "block";
+                const avatarSrc = window.baseUrl + userInfo.avatar_url;
+                if (userAvatar) {
+                    userAvatar.src = avatarSrc;
+                    userAvatar.style.display = "block";
+                }
+                if (mobileUserAvatar) {
+                    mobileUserAvatar.src = avatarSrc;
+                    mobileUserAvatar.style.display = "block";
+                }
             }
         } catch(e) {
             console.error("解析用户信息失败:", e);
@@ -290,14 +302,15 @@ document.addEventListener('DOMContentLoaded', function() {
         userBtn.addEventListener('click', logoutUser);
     } else {
         // 用户未登录，保持原样
-        loginText.textContent = "登录";
-        // userAvatar.style.display = "none";
+        if (loginText) loginText.textContent = "登录";
+        if (mobileLoginText) mobileLoginText.textContent = "登录";
         
         // 确保点击事件是显示登录模态框
         userBtn.removeEventListener('click', logoutUser);
         userBtn.addEventListener('click', showLoginModal);
     }
 });
+
 
 // 原始的登录模态框显示函数
 function showLoginModal() {
@@ -323,9 +336,14 @@ function logoutUser() {
             // 无论服务器响应如何，都执行UI更新和页面刷新
             // 更新UI
             const loginText = document.getElementById('login-text');
+            const mobilLoginText = document.querySelector('.mobile-menu #login-text');
             const userAvatar = document.getElementById('user-avatar');
+            const mobileUserAvatar = document.querySelector('.mobile-menu #user-avatar');
+            
             if (loginText) loginText.textContent = "登录";
+            if (mobilLoginText) mobilLoginText.textContent = "登录";
             if (userAvatar) userAvatar.style.display = "none";
+            if (mobileUserAvatar) mobileUserAvatar.style.display = "none";
             
             // 一定要刷新页面
             window.location.reload();
@@ -339,27 +357,44 @@ function logoutUser() {
 }
 
 
+
 // 更新用户卡片显示
 function updateUserCard(userInfo) {
     if (userInfo) {
         // 用户已登录
         $('#sidebar-username').text(userInfo.user_name || '用户');
+        $('#mobile-sidebar-username').text(userInfo.user_name || '用户');
+        
         if (userInfo.avatar_url) {
-            $('#sidebar-avatar').attr('src', window.baseUrl + userInfo.avatar_url);
+            const avatarSrc = window.baseUrl + userInfo.avatar_url;
+            $('#sidebar-avatar').attr('src', avatarSrc);
+            $('#mobile-sidebar-avatar').attr('src', avatarSrc);
         }
         
         // 添加我的订单按钮
-        if ($('#my-orders-btn').length === 0) {
-            $('#user-actions').html(`
-                <button id="my-orders-btn" class="action-btn">
-                    <i class="fas fa-shopping-bag"></i> 我的订单
-                </button>
-            `);
-        }
+        const orderBtnHtml = `
+            <button id="my-orders-btn" class="action-btn">
+                <i class="fas fa-shopping-bag"></i> 我的订单
+            </button>
+        `;
+        
+        $('#user-actions').html(orderBtnHtml);
+        $('#user-profile-actions').html(`
+            <button id="edit-profile-btn" class="user-action-btn">
+                <i class="fas fa-user-edit"></i> 修改个人信息
+            </button>
+        `);
+        $('#mobile-user-actions').html(orderBtnHtml);
     } else {
         // 用户未登录
         $('#sidebar-username').text('访客');
+        $('#mobile-sidebar-username').text('访客');
+        
         $('#sidebar-avatar').attr('src', './assets/images/avatars/OIP-C.webp');
+        $('#mobile-sidebar-avatar').attr('src', './assets/images/avatars/OIP-C.webp');
+        
         $('#user-actions').empty();
+        $('#mobile-user-actions').empty();
     }
 }
+

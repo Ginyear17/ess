@@ -135,3 +135,15 @@ $(document).ready(function() {
         return sessionStorage.getItem("userInfo") !== null;
     }
 });
+
+// 点击移动端编辑按钮显示模态框
+$(document).on('click', '#mobile-edit-profile-btn', function() {
+    if (!isUserLoggedIn()) {
+        $('#login-modal').css('display', 'flex');
+        closeMenu(); // 关闭移动菜单
+        return;
+    }
+    profileModal.style.display = "flex";
+    closeMenu(); // 关闭移动菜单
+});
+
