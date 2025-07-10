@@ -11,13 +11,19 @@ $(document).ready(function() {
             success: function (response) {
                 $('#user-count').text(response.userCount || 0);
                 $('#product-count').text(response.productCount || 0);
+                $('#product-stock-total').text(response.productStockTotal || 0);
+                $('#order-count').text(response.orderCount || 0);
             },
             error: function () {
                 $('#user-count').text('加载失败');
                 $('#product-count').text('加载失败');
+                $('#product-stock-total').text('加载失败');
+                $('#order-count').text('加载失败');
             }
         });
     }
+
+
 
     // 默认加载控制台页面 (这行代码确保页面加载时显示控制台数据)
     $('.nav-sidebar li:first-child a').click();
@@ -150,8 +156,6 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 renderProductsTable(data);
-                // 更新商品总数
-                $('#product-count').text(data.length);
             },
             error: function() {
                 alert('加载商品数据失败');

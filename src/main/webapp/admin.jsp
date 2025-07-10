@@ -65,13 +65,34 @@
                             <div class="col-xs-6 col-sm-3 placeholder">
                                 <div class="panel panel-success">
                                     <div class="panel-heading">
-                                        <h3 class="panel-title">商品总数</h3>
+                                        <h3 class="panel-title">商品种类数</h3>
                                     </div>
                                     <div class="panel-body">
                                         <h4 id="product-count">加载中...</h4>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">商品库存总数</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <h4 id="product-stock-total">加载中...</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3 placeholder">
+                                <div class="panel panel-warning">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">订单总数</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <h4 id="order-count">加载中...</h4>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

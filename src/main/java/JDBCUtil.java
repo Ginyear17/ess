@@ -124,11 +124,16 @@ public class JDBCUtil {
                 ps.setObject(i + 1, args[i]);
             }
             rs = ps.executeQuery();
-            while (rs.next()) {
-                // 返回第一行第一列
+            if (rs.next()) {
+                // 先检查NULL值
+                Object result = rs.getObject(1);
+                if (result == null) {
+                    return 0;
+                }
                 return rs.getInt(1);
             }
         } catch (Exception e) {
+            System.err.println("执行SQL查询失败: " + sql);
             e.printStackTrace();
         } finally {
             close(con, ps, rs);
