@@ -44,6 +44,7 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    color: white;
 }
 
 .slide-subtitle {
@@ -52,6 +53,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    color: white;
 }
 
 .slide-link {

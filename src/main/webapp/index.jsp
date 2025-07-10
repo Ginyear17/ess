@@ -263,47 +263,42 @@
             <!-- Slider -->
             <div class="slider">
                 <div class="slide active">
-                    <img src="./assets/images/album/时光小憩.JPG" alt="时光小憩" class="slide-img">
+                    <img src="./assets/images/slider/数码.png" alt="数码" class="slide-img">
                     <div class="slide-content">
-                        <h2 class="slide-title"></h2>
-                        <p class="slide-subtitle"></p>
-                        <a href="/" class="slide-link"><i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">数码</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">探索科技前沿，享受智能生活</p></a>
                     </div>
                 </div>
                 
                 <div class="slide">
-                    <img src="./assets/images/album/IMG_20240210_174111.jpg" alt="螺洲古镇日落" class="slide-img">
+                    <img src="./assets/images/slider/家电.png" alt="家电" class="slide-img">
                     <div class="slide-content">
-                        <h2 class="slide-title"></h2>
-                        <p class="slide-subtitle"></p>
-                        <a href="/" class="slide-link"><i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">家电</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">品质家电，让生活更便捷</p></a>
                     </div>
                 </div>
                 
                 <div class="slide">
-                    <img src="./assets/images/album/IMG_20230815_121415.jpg" alt="白云" class="slide-img">
+                    <img src="./assets/images/slider/家具.png" alt="家具" class="slide-img">
                     <div class="slide-content">
-                        <h2 class="slide-title"></h2>
-                        <p class="slide-subtitle"></p>
-                        <a href="/" class="slide-link"><i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">家具</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">温馨舒适，打造理想居所</p></a>
                     </div>
                 </div>
                 
                 <div class="slide">
-                    <img src="./assets/images/album/IMG_20230820_183148.jpg" alt="烟台山小店" class="slide-img">
+                    <img src="./assets/images/slider/服装.png" alt="服装" class="slide-img">
                     <div class="slide-content">
-                        <h2 class="slide-title"></h2>
-                        <p class="slide-subtitle"></p>
-                        <a href="/" class="slide-link"><i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">服装</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">时尚穿搭，彰显个性风采</p></a>
                     </div>
                 </div>
 
                 <div class="slide">
-                    <img src="./assets/images/album/IMG_20241202_173347.jpg" alt="建发楼日落" class="slide-img">
+                    <img src="./assets/images/slider/美妆.png" alt="美妆" class="slide-img">
                     <div class="slide-content">
-                        <h2 class="slide-title"></h2>
-                        <p class="slide-subtitle"></p>
-                        <a href="/" class="slide-link"><i class="fas fa-arrow-right"></i></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">美妆</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">精致妆容，绽放自信魅力</p></a>
                     </div>
                 </div>
                 
@@ -324,6 +319,7 @@
                 <span class="slider-dot" data-index="4"></span>
                 </div>
             </div>
+
             
             <!-- product Posts -->
             <div class="product-section">
