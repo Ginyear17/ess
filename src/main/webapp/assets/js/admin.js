@@ -267,6 +267,131 @@ $(document).ready(function() {
         });
     }
 
+// 加载订单数据
+    function loadOrdersData() {
+        $.ajax({
+            url: 'admin/orders',
+            type: 'GET',
+            dataType: 'json',
+            success: function(orders) {
+                var orderTable = $('#orders-table');
+                orderTable.empty();
+                $.each(orders, function(index, order) {
+                    var row = $('<tr>');
+                    row.append($('<td>').text(order.order_id));
+                    row.append($('<td>').text(order.user_id));
+                    row.append($('<td>').text(order.product_id));
+                    row.append($('<td>').text(new Date(order.order_date).toLocaleString()));
+                    row.append($('<td>').text('¥' + order.price.toFixed(2)));
+                    row.append($('<td>').text(order.quantity));
+                    row.append($('<td>').text('¥' + order.total.toFixed(2)));
+                    row.append($('<td>').text(order.real_name));
+                    row.append($('<td>').text(order.phone));
+                    row.append($('<td>').text(order.address));
+                    row.append($('<td>').text(getPaymentMethodText(order.payment_method)));
+
+                    // 操作按钮
+                    var actions = $('<td>');
+                    var editButton = $('<button>').addClass('btn btn-primary btn-xs edit-order-btn').text('编辑').data('order', order);
+                    var deleteButton = $('<button>').addClass('btn btn-danger btn-xs delete-order-btn').text('删除').data('order-id', order.order_id);
+                    actions.append(editButton).append(' ').append(deleteButton);
+                    row.append(actions);
+
+                    orderTable.append(row);
+                });
+            },
+            error: function() {
+                alert('加载订单数据失败');
+            }
+        });
+    }
+
+// 支付方式文本转换
+    function getPaymentMethodText(method) {
+        switch(method) {
+            case 'alipay': return '支付宝';
+            case 'wechat': return '微信支付';
+            case 'cod': return '货到付款';
+            default: return method;
+        }
+    }
+
+// 点击订单管理标签时加载订单数据
+    $('a[data-target="#orders"]').on('click', function() {
+        loadOrdersData();
+    });
+
+// 编辑订单按钮点击事件
+    $('#orders-table').on('click', '.edit-order-btn', function() {
+        var order = $(this).data('order');
+        $('#order-id').val(order.order_id);
+        $('#order-user-id').val(order.user_id);
+        $('#order-product-id').val(order.product_id);
+        $('#order-price').val(order.price);
+        $('#order-quantity').val(order.quantity);
+        $('#order-real-name').val(order.real_name);
+        $('#order-phone').val(order.phone);
+        $('#order-address').val(order.address);
+        $('#order-payment-method').val(order.payment_method);
+
+        $('#orderModalTitle').text('编辑订单');
+        $('#orderModal').modal('show');
+    });
+
+// 保存订单修改
+    $('#save-order-btn').on('click', function() {
+        var orderData = {
+            order_id: $('#order-id').val(),
+            user_id: $('#order-user-id').val(),
+            product_id: $('#order-product-id').val(),
+            price: $('#order-price').val(),
+            quantity: $('#order-quantity').val(),
+            real_name: $('#order-real-name').val(),
+            phone: $('#order-phone').val(),
+            address: $('#order-address').val(),
+            payment_method: $('#order-payment-method').val(),
+            action: 'update'
+        };
+
+        $.ajax({
+            url: 'admin/orders',
+            type: 'POST',
+            data: orderData,
+            success: function(response) {
+                $('#orderModal').modal('hide');
+                loadOrdersData();
+                alert("订单更新成功");
+            },
+            error: function(xhr) {
+                alert("订单更新失败: " + xhr.responseText);
+            }
+        });
+    });
+
+    // 删除订单
+    $('#orders-table').on('click', '.delete-order-btn', function() {
+        var orderId = $(this).data('order-id');
+
+        if (confirm("确定要删除该订单吗？此操作不可撤销！")) {
+            $.ajax({
+                url: 'admin/orders',
+                type: 'POST',
+                data: {
+                    action: 'delete',
+                    order_id: orderId
+                },
+                success: function(response) {
+                    loadOrdersData();
+                    alert("订单删除成功");
+                },
+                error: function(xhr) {
+                    alert("订单删除失败: " + xhr.responseText);
+                }
+            });
+        }
+    });
+
+
 });
 
 

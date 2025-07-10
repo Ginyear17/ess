@@ -41,6 +41,7 @@
                     <li class="active"><a href="#" data-toggle="tab" data-target="#dashboard">控制台首页</a></li>
                     <li><a href="#" data-toggle="tab" data-target="#users">用户管理</a></li>
                     <li><a href="#" data-toggle="tab" data-target="#products">商品管理</a></li>
+                    <li><a href="#" data-toggle="tab" data-target="#orders">订单管理</a></li>
                 </ul>
             </div>
 
@@ -137,6 +138,42 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 订单管理 -->
+                    <div class="tab-pane" id="orders">
+                        <h1 class="page-header">订单管理</h1>
+                        <div class="table-responsive">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">订单列表</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>订单ID</th>
+                                            <th>用户ID</th>
+                                            <th>产品ID</th>
+                                            <th>订单日期</th>
+                                            <th>单价</th>
+                                            <th>数量</th>
+                                            <th>总价</th>
+                                            <th>收货人</th>
+                                            <th>电话</th>
+                                            <th>地址</th>
+                                            <th>支付方式</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="orders-table">
+                                        <!-- 订单数据将通过AJAX加载 -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -229,6 +266,69 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" id="save-user-btn">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑订单的模态框 -->
+    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title" id="orderModalTitle">编辑订单</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="orderForm">
+                        <input type="hidden" id="order-id">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="order-user-id">用户ID</label>
+                                    <input type="number" class="form-control" id="order-user-id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-product-id">商品ID</label>
+                                    <input type="number" class="form-control" id="order-product-id" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-price">单价</label>
+                                    <input type="number" step="0.01" class="form-control" id="order-price" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-quantity">数量</label>
+                                    <input type="number" class="form-control" id="order-quantity" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="order-real-name">收货人</label>
+                                    <input type="text" class="form-control" id="order-real-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-phone">电话</label>
+                                    <input type="tel" class="form-control" id="order-phone" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-address">地址</label>
+                                    <textarea class="form-control" id="order-address" rows="2" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="order-payment-method">支付方式</label>
+                                    <select class="form-control" id="order-payment-method" required>
+                                        <option value="alipay">支付宝</option>
+                                        <option value="wechat">微信支付</option>
+                                        <option value="cod">货到付款</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="save-order-btn">保存</button>
                 </div>
             </div>
         </div>
