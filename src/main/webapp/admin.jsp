@@ -357,7 +357,7 @@
                     type: "POST",
                     success: function() {
                         // 跳转到 index.jsp
-                        window.location.href = "index.jsp";
+                        window.location.href = "getProducts";
                     },
                     error: function() {
                         alert("登出失败！");
