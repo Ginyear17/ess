@@ -262,8 +262,8 @@
                 <div class="slide active">
                     <img src="./assets/images/slider/数码.png" alt="数码" class="slide-img">
                     <div class="slide-content">
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">数码</h2></a>
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">探索科技前沿，享受智能生活</p></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="数码"><h2 class="slide-title">数码</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="数码"><p class="slide-subtitle">探索科技前沿，享受智能生活</p></a>
                     </div>
                 </div>
                 
@@ -278,24 +278,24 @@
                 <div class="slide">
                     <img src="./assets/images/slider/家具.png" alt="家具" class="slide-img">
                     <div class="slide-content">
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">家具</h2></a>
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">温馨舒适，打造理想居所</p></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家具"><h2 class="slide-title">家具</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="家具"><p class="slide-subtitle">温馨舒适，打造理想居所</p></a>
                     </div>
                 </div>
                 
                 <div class="slide">
                     <img src="./assets/images/slider/服装.png" alt="服装" class="slide-img">
                     <div class="slide-content">
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">服装</h2></a>
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">时尚穿搭，彰显个性风采</p></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="服装"><h2 class="slide-title">服装</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="服装"><p class="slide-subtitle">时尚穿搭，彰显个性风采</p></a>
                     </div>
                 </div>
 
                 <div class="slide">
                     <img src="./assets/images/slider/美妆.png" alt="美妆" class="slide-img">
                     <div class="slide-content">
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><h2 class="slide-title">美妆</h2></a>
-                        <a href="javascript:void(0)" class="nav-link" data-category="家电"><p class="slide-subtitle">精致妆容，绽放自信魅力</p></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="美妆"><h2 class="slide-title">美妆</h2></a>
+                        <a href="javascript:void(0)" class="nav-link" data-category="美妆"><p class="slide-subtitle">精致妆容，绽放自信魅力</p></a>
                     </div>
                 </div>
                 
