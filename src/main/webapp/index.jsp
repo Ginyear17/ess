@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./assets/css/click-appears.css">
     <link rel="stylesheet" href="./assets/css/product.css">
     <link rel="stylesheet" href="./assets/css/product-posts.css">
+    <link rel="stylesheet" href="./assets/css/orders.css">
 
 </head>
 <body>
@@ -203,6 +204,18 @@
         </div>
     </div>
 
+    <!-- 订单模态框 -->
+    <div id="orders-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>我的订单</h2>
+            <div class="orders-container">
+                <!-- 订单列表将通过JavaScript动态生成 -->
+                <div id="orders-list"></div>
+            </div>
+            <div id="orders-message" class="message"></div>
+        </div>
+    </div>
 
 
     <main class="main">
@@ -297,7 +310,6 @@
                     </c:forEach>
                 </div>
 
-            
             </div>
         </div>
 
@@ -310,8 +322,12 @@
                         <img id="sidebar-avatar" src="./assets/images/avatars/avatar-main.webp" alt="Profile" class="user-avatar">
                         <h3 id="sidebar-username" class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
                     </div>
+                    <div class="user-actions" id="user-actions">
+                        <!-- 这里的按钮将根据登录状态动态显示 -->
+                    </div>
                 </div>
             </div>
+
 
             <div class="card">
                 <div class="card-content">

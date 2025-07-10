@@ -222,6 +222,9 @@ function getUserInfoByEmail(email, callback) {
           sessionStorage.setItem("userInfo", JSON.stringify(response.user));
           console.log("用户完整信息已存入sessionStorage:", response.user);
           
+          // 更新用户卡片
+          updateUserCard(response.user);
+          
           // 执行回调函数
           if (typeof callback === 'function') {
             callback();
@@ -240,35 +243,23 @@ function getUserInfoByEmail(email, callback) {
 
 
 
-// 修改为从sessionStorage获取完整用户信息并渲染侧边栏
-// 页面加载时自动触发，所以可以通过刷新触发
-(function() {
-    // 从sessionStorage获取完整用户信息
-    var userInfoStr = sessionStorage.getItem("userInfo");
+
+// 在页面加载时检查用户登录状态
+$(document).ready(function() {
+    const userInfoStr = sessionStorage.getItem("userInfo");
     if (userInfoStr) {
         try {
-            var userInfo = JSON.parse(userInfoStr);
-            console.log("用户完整信息:", userInfo);
-            
-            // 更新用户名
-            if (userInfo.user_name) {
-                document.getElementById("sidebar-username").textContent = userInfo.user_name;
-            }
-            
-            // 更新头像
-            if (userInfo.avatar_url) {
-                document.getElementById("sidebar-avatar").src =window.baseUrl + userInfo.avatar_url;
-            }
-
+            const userInfo = JSON.parse(userInfoStr);
+            updateUserCard(userInfo);
         } catch(e) {
-            console.error("解析用户信息时出错:", e);
+            console.error("解析用户信息失败:", e);
+            updateUserCard(null);
         }
     } else {
-        // 未登录或无用户信息时显示默认头像和名称
-        document.getElementById("sidebar-avatar").src = "./assets/images/avatars/avatar-main.webp";
-        document.getElementById("sidebar-username").textContent = "未登录";
+        updateUserCard(null);
     }
-})();
+});
+
 
 
 
@@ -320,6 +311,9 @@ function logoutUser() {
         sessionStorage.removeItem("userInfo");
         localStorage.removeItem("user");
         
+        // 清除用户卡片
+        updateUserCard(null);
+        
         // 发送退出登录请求
         fetch('logoutServlet', {
             method: 'POST',
@@ -344,3 +338,28 @@ function logoutUser() {
     }
 }
 
+
+// 更新用户卡片显示
+function updateUserCard(userInfo) {
+    if (userInfo) {
+        // 用户已登录
+        $('#sidebar-username').text(userInfo.user_name || '用户');
+        if (userInfo.avatar_url) {
+            $('#sidebar-avatar').attr('src', window.baseUrl + userInfo.avatar_url);
+        }
+        
+        // 添加我的订单按钮
+        if ($('#my-orders-btn').length === 0) {
+            $('#user-actions').html(`
+                <button id="my-orders-btn" class="action-btn">
+                    <i class="fas fa-shopping-bag"></i> 我的订单
+                </button>
+            `);
+        }
+    } else {
+        // 用户未登录
+        $('#sidebar-username').text('访客');
+        $('#sidebar-avatar').attr('src', './assets/images/avatars/avatar-main.webp');
+        $('#user-actions').empty();
+    }
+}
