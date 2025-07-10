@@ -42,13 +42,6 @@ if (savedTheme === 'dark') {
   themeIcon.className = 'fas fa-moon';
 }
 
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-});
-
 // Search functionality
 const searchBtn = document.querySelector('.search-btn');
 searchBtn.addEventListener('click', () => {
