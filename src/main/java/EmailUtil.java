@@ -29,7 +29,7 @@ public class EmailUtil {
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(FROM_EMAIL));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
-        message.setSubject("电子商城注册验证码");
+        message.setSubject("宇宙超级无敌干饭电子商城注册验证码");
         message.setText("您的验证码是: " + code + "，有效期为5分钟，请勿告知他人。");
 
         Transport.send(message);

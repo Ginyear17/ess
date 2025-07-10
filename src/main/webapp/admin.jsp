@@ -217,9 +217,16 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="product-image">商品图片URL</label>
-                            <input type="text" class="form-control" id="product-image" required>
+                            <label for="product-image-upload">商品图片</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="product-image-upload" accept="image/*">
+                                <input type="hidden" id="product-image" name="imageUrl">
+                            </div>
+                            <div class="mt-2">
+                                <img id="product-image-preview" src="" alt="商品预览图" style="max-width: 200px; max-height: 200px; display: none;" class="img-thumbnail">
+                            </div>
                         </div>
+
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" id="product-active" checked> 是否激活

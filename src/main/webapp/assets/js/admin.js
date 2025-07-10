@@ -267,7 +267,7 @@ $(document).ready(function() {
         });
     }
 
-// 加载订单数据
+    // 加载订单数据
     function loadOrdersData() {
         $.ajax({
             url: 'admin/orders',
@@ -306,7 +306,7 @@ $(document).ready(function() {
         });
     }
 
-// 支付方式文本转换
+    // 支付方式文本转换
     function getPaymentMethodText(method) {
         switch(method) {
             case 'alipay': return '支付宝';
@@ -316,12 +316,12 @@ $(document).ready(function() {
         }
     }
 
-// 点击订单管理标签时加载订单数据
+    // 点击订单管理标签时加载订单数据
     $('a[data-target="#orders"]').on('click', function() {
         loadOrdersData();
     });
 
-// 编辑订单按钮点击事件
+    // 编辑订单按钮点击事件
     $('#orders-table').on('click', '.edit-order-btn', function() {
         var order = $(this).data('order');
         $('#order-id').val(order.order_id);
@@ -338,7 +338,7 @@ $(document).ready(function() {
         $('#orderModal').modal('show');
     });
 
-// 保存订单修改
+    // 保存订单修改
     $('#save-order-btn').on('click', function() {
         var orderData = {
             order_id: $('#order-id').val(),
@@ -391,6 +391,84 @@ $(document).ready(function() {
         }
     });
 
+    // 图片上传预览
+    $('#product-image-upload').change(function() {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                $('#product-image-preview').attr('src', e.target.result).show();
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // 修改editProduct函数，增加图片预览功能
+    function editProduct(product) {
+        $('#productModalTitle').text('编辑商品');
+        $('#product-id').val(product.productId);
+        $('#product-name').val(product.productName);
+        $('#product-description').val(product.productDescription);
+        $('#product-price').val(product.productPrice);
+        $('#product-stock').val(product.productStock);
+        $('#product-category').val(product.category);
+        $('#product-image').val(product.imageUrl);
+        
+        // 如果有图片，设置预览
+        if (product.imageUrl) {
+            $('#product-image-preview').attr('src', product.imageUrl).show();
+        } else {
+            $('#product-image-preview').hide();
+        }
+        
+        $('#product-active').prop('checked', product.isActive);
+        $('#productModal').modal('show');
+    }
+
+    // 修改saveProduct函数，增加文件上传功能
+    function saveProduct() {
+        const productId = $('#product-id').val();
+        const isAdd = productId === '';
+        
+        // 创建FormData对象用于文件上传
+        const formData = new FormData();
+        formData.append('productName', $('#product-name').val());
+        formData.append('productDescription', $('#product-description').val());
+        formData.append('productPrice', $('#product-price').val());
+        formData.append('productStock', $('#product-stock').val());
+        formData.append('category', $('#product-category').val());
+        formData.append('isActive', $('#product-active').is(':checked'));
+        formData.append('action', isAdd ? 'add' : 'update');
+        
+        // 获取文件
+        const imageFile = $('#product-image-upload')[0].files[0];
+        if (imageFile) {
+            formData.append('productImage', imageFile);
+        } else if ($('#product-image').val()) {
+            // 如果没有新上传的文件但有现有图片URL
+            formData.append('imageUrl', $('#product-image').val());
+        }
+        
+        if (!isAdd) {
+            formData.append('productId', productId);
+        }
+        
+        $.ajax({
+            url: 'admin/products',
+            type: 'POST',
+            data: formData,
+            processData: false,  // 不处理数据
+            contentType: false,  // 不设置内容类型
+            success: function(response) {
+                $('#productModal').modal('hide');
+                loadProducts();
+                alert(isAdd ? '商品添加成功' : '商品更新成功');
+            },
+            error: function() {
+                alert(isAdd ? '商品添加失败' : '商品更新失败');
+            }
+        });
+    }
 
 });
 

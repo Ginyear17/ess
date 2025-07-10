@@ -44,6 +44,7 @@ public class UpdateUserProfileServlet extends HttpServlet {
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = user.getUserId() + "_" + System.currentTimeMillis() + getFileExtension(filePart);
                 String uploadPath = getServletContext().getRealPath("/assets/images/avatars");
+                System.out.println(getServletContext().getRealPath("/"));
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists())
                     uploadDir.mkdir();
