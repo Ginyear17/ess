@@ -411,5 +411,6 @@
     <script src="assets/js/shopping_cart.js"></script>
     <script src="assets/js/checkout.js"></script>
     <script src="assets/js/category.js"></script>
+    <script src="assets/js/orders.js"></script>
 </body>
 </html>
