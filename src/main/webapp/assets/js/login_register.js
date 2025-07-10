@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const userInfoStr = sessionStorage.getItem("userInfo");
     const userBtn = document.querySelector('.user-btn');
     const loginText = document.getElementById('login-text');
-    const userAvatar = document.getElementById('user-avatar');
+    const userAvatar = document.getElementById('sidebar-avatar');
     
     if (userInfoStr) {
         // 用户已登录，修改按钮显示
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         // 用户未登录，保持原样
         loginText.textContent = "登录";
-        userAvatar.style.display = "none";
+        // userAvatar.style.display = "none";
         
         // 确保点击事件是显示登录模态框
         userBtn.removeEventListener('click', logoutUser);

@@ -352,7 +352,7 @@
             <div class="card">
                 <div class="user-card-content">
                     <div class="user-header">
-                        <img id="sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar", id="user-avatar">
+                        <img id="sidebar-avatar" src="./assets/images/avatars/OIP-C.webp" alt="Profile" class="user-avatar">
                         <h3 id="sidebar-username" class="user-name">𝓣𝓼°𝓒 𝓢𝓱𝓪𝓭𝓸𝔀</h3>
                     </div>
                     <div class="user-actions" id="user-actions">
