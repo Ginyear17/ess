@@ -3,23 +3,40 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // 编码设置
         req.setCharacterEncoding("utf-8");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("utf-8");
 
         try {
-            // 获取请求参数
             String email = req.getParameter("email");
             String password = req.getParameter("password");
             String confirmPassword = req.getParameter("confirmPassword");
-            String username = req.getParameter("username"); // 获取前端传来的用户名
+            String username = req.getParameter("username");
+            String verificationCode = req.getParameter("verificationCode");
+
+            // 验证码验证
+            HttpSession session = req.getSession();
+            String storedCode = (String) session.getAttribute("verificationCode");
+            String storedEmail = (String) session.getAttribute("verificationEmail");
+            Long storedTime = (Long) session.getAttribute("verificationTime");
+
+            // 验证码有效期为5分钟
+            boolean isCodeValid = storedCode != null && storedCode.equals(verificationCode) &&
+                    email.equals(storedEmail) &&
+                    System.currentTimeMillis() - storedTime <= 5 * 60 * 1000;
+
+            if (!isCodeValid) {
+                resp.getWriter().write("{\"success\":false,\"message\":\"验证码无效或已过期!\"}");
+                return;
+            }
 
             // 验证密码是否匹配
             if (!password.equals(confirmPassword)) {

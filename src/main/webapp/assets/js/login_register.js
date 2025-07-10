@@ -94,12 +94,67 @@ loginSubmitBtn.addEventListener("click", function() {
 
 var registerSubmitBtn = document.getElementById("register-submit-btn");
 
+
+// 获取发送验证码按钮
+var sendCodeBtn = document.getElementById("send-code-btn");
+
+// 发送验证码事件处理
+sendCodeBtn.addEventListener("click", function() {
+  var email = document.querySelector("#register-form input[name='new-email']").value;
+  
+  if (!email) {
+    document.getElementById("register-error-msg").textContent = "请输入邮箱地址";
+    return;
+  }
+  
+  // 禁用按钮并开始倒计时
+  var countdown = 60;
+  sendCodeBtn.disabled = true;
+  sendCodeBtn.textContent = countdown + "秒后重新发送";
+  
+  var timer = setInterval(function() {
+    countdown--;
+    if (countdown <= 0) {
+      clearInterval(timer);
+      sendCodeBtn.disabled = false;
+      sendCodeBtn.textContent = "发送验证码";
+    } else {
+      sendCodeBtn.textContent = countdown + "秒后重新发送";
+    }
+  }, 1000);
+  
+  // 创建AJAX请求
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "sendVerificationCode", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        try {
+          var response = JSON.parse(xhr.responseText);
+          document.getElementById("register-error-msg").textContent = response.message;
+          document.getElementById("register-error-msg").style.color = response.success ? "green" : "red";
+        } catch (e) {
+          document.getElementById("register-error-msg").textContent = "发送验证码过程中发生错误";
+          document.getElementById("register-error-msg").style.color = "red";
+        }
+      }
+    }
+  };
+  
+  // 发送请求
+  xhr.send("email=" + encodeURIComponent(email));
+});
+
 registerSubmitBtn.addEventListener("click", function() {
-  console.log("注册按钮被点击"); // 添加这行来确认事件是否触发
+  // 获取原有字段
   var username = document.querySelector("#register-form input[name='new-username']").value;
   var email = document.querySelector("#register-form input[name='new-email']").value;
   var password = document.querySelector("#register-form input[name='new-password']").value;
   var confirmPassword = document.querySelector("#register-form input[name='confirm-password']").value;
+  // 获取验证码
+  var verificationCode = document.querySelector("#register-form input[name='verification-code']").value;
 
   // 创建AJAX请求
   var xhr = new XMLHttpRequest();
@@ -129,7 +184,11 @@ registerSubmitBtn.addEventListener("click", function() {
   };
   
   // 发送请求（需要添加用户名参数）
-  xhr.send("username=" + encodeURIComponent(username) + "&email=" + encodeURIComponent(email) + "&password=" + encodeURIComponent(password) + "&confirmPassword=" + encodeURIComponent(confirmPassword));
+  xhr.send("username=" + encodeURIComponent(username) + 
+           "&email=" + encodeURIComponent(email) + 
+           "&password=" + encodeURIComponent(password) + 
+           "&confirmPassword=" + encodeURIComponent(confirmPassword) + 
+           "&verificationCode=" + encodeURIComponent(verificationCode));
 });
 
 

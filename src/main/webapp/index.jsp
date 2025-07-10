@@ -119,8 +119,16 @@
                     </div>
                     <div class="label-group">
                         <label for="new-email">邮 箱</label>
-                        <input type="email" id="new-email" name="new-email" required>
-                    </div>                
+                        <div style="display: flex; gap: 10px;">
+                            <input type="email" id="new-email" name="new-email" required style="flex: 1;">
+                            <button type="button" id="send-code-btn" class="btn-send-code">发送验证码</button>
+                        </div>
+                    </div>
+                    <div class="label-group">
+                        <label for="verification-code">验证码</label>
+                        <input type="text" id="verification-code" name="verification-code" required>
+                    </div>
+            
                     <div class="label-group">
                         <label for="new-password">密 码 </label>
                         <input type="password" id="new-password" name="new-password" required>
