@@ -162,6 +162,35 @@ body.dark .nav-link:hover, body.dark .nav-link.active {
     visibility: visible;
 }
 
+
+/* 添加到你的CSS文件中 */
+.user-login-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.icon-btn.user-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+}
+
+#user-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* 退出登录时的样式 */
+.user-btn.logged-in:hover #login-text {
+    color: var(--error-color);
+}
+
+
+
 /* Responsive */
 @media (min-width: 768px) {
     .nav {

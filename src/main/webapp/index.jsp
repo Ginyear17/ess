@@ -45,7 +45,6 @@
             <!-- Header Actions -->
             <div class="header-actions">
                 <button class="icon-btn user-btn" aria-label="个人中心">
-                    <img id="user-avatar" src="" alt="用户头像" style="display: none;">
                     <div class="user-login-container">
                         <span id="login-text">登录</span>
                     </div>

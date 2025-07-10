@@ -11,9 +11,22 @@ var backToLoginBtn = document.getElementById("back-to-login-btn");
 var closeButtons = document.getElementsByClassName("close-button");
 
 // 当用户点击用户按钮时，打开登录模态框
-userBtn.addEventListener("click", function() {
-  loginModal.style.display = "flex";
-});
+var userBtn = document.querySelector(".user-btn");
+function initLoginButton() {
+    // 先移除可能存在的事件监听器
+    userBtn.removeEventListener("click", showLoginModal);
+    userBtn.removeEventListener("click", logoutUser);
+    
+    // 根据登录状态添加适当的事件监听器
+    if (sessionStorage.getItem("userInfo")) {
+        userBtn.addEventListener("click", logoutUser);
+    } else {
+        userBtn.addEventListener("click", showLoginModal);
+    }
+}
+
+// 初始化按钮
+initLoginButton();
 
 // 当用户点击注册按钮时，切换到注册模态框
 registerBtn.addEventListener("click", function() {
@@ -256,3 +269,78 @@ function getUserInfoByEmail(email, callback) {
         document.getElementById("sidebar-username").textContent = "未登录";
     }
 })();
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查用户是否已登录
+    const userInfoStr = sessionStorage.getItem("userInfo");
+    const userBtn = document.querySelector('.user-btn');
+    const loginText = document.getElementById('login-text');
+    const userAvatar = document.getElementById('user-avatar');
+    
+    if (userInfoStr) {
+        // 用户已登录，修改按钮显示
+        loginText.textContent = "退出登录";
+        
+        // 如果有头像，显示头像
+        try {
+            const userInfo = JSON.parse(userInfoStr);
+            if (userInfo.avatar_url) {
+                userAvatar.src = window.baseUrl + userInfo.avatar_url;
+                userAvatar.style.display = "block";
+            }
+        } catch(e) {
+            console.error("解析用户信息失败:", e);
+        }
+        
+        // 修改点击事件为退出登录
+        userBtn.removeEventListener('click', showLoginModal);
+        userBtn.addEventListener('click', logoutUser);
+    } else {
+        // 用户未登录，保持原样
+        loginText.textContent = "登录";
+        userAvatar.style.display = "none";
+        
+        // 确保点击事件是显示登录模态框
+        userBtn.removeEventListener('click', logoutUser);
+        userBtn.addEventListener('click', showLoginModal);
+    }
+});
+
+// 原始的登录模态框显示函数
+function showLoginModal() {
+    loginModal.style.display = "flex";
+}
+
+// 新增退出登录函数
+function logoutUser() {
+    if (confirm("确定要退出登录吗？")) {
+        // 先清除本地存储
+        sessionStorage.removeItem("userInfo");
+        localStorage.removeItem("user");
+        
+        // 发送退出登录请求
+        fetch('logoutServlet', {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            // 无论服务器响应如何，都执行UI更新和页面刷新
+            // 更新UI
+            const loginText = document.getElementById('login-text');
+            const userAvatar = document.getElementById('user-avatar');
+            if (loginText) loginText.textContent = "登录";
+            if (userAvatar) userAvatar.style.display = "none";
+            
+            // 一定要刷新页面
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('退出登录失败:', error);
+            // 即使请求失败也刷新页面
+            window.location.reload();
+        });
+    }
+}
+
