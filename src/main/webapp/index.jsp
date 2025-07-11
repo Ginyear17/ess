@@ -145,9 +145,7 @@
                     </div>
                     <div class="label-group">
                         <label for="new-email">邮 箱</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="email" id="new-email" name="new-email" required style="flex: 1;">
-                        </div>
+                        <input type="email" id="new-email" name="new-email" required>
                     </div>
                     <div class="label-group">
                         <label for="verification-code">验证码</label>
@@ -195,11 +193,11 @@
                     <div class="form-group">
                         <div class="label-group">
                             <label for="recipient-name">收件人</label>
-                            <input type="text" id="recipient-name" name="recipient-name" required>
+                            <textarea type="text" id="recipient-name" name="recipient-name" required></textarea>
                         </div>
                         <div class="label-group">
                             <label for="phone">联系电话</label>
-                            <input type="text" id="phone" name="phone" required>
+                            <textarea type="text" id="phone" name="phone" required></textarea>
                         </div>
                         <div class="label-group">
                             <label for="address">详细地址</label>
