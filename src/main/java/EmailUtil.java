@@ -10,13 +10,13 @@ import java.util.Properties;
 
 public class EmailUtil {
     private static final String FROM_EMAIL = "2981443172@qq.com"; // 发件人邮箱
-    private static final String PASSWORD = "oocqvhwaqfvkdead"; // 发件人密码或应用专用密码
+    private static final String PASSWORD = "oocqvhwaqfvkdead";
 
     public static void sendVerificationCode(String toEmail, String code) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.qq.com"); // 邮箱服务器，如smtp.gmail.com
+        props.put("mail.smtp.host", "smtp.qq.com"); // 邮箱服务器
         props.put("mail.smtp.port", "587"); // 邮箱服务器端口
 
         Session session = Session.getInstance(props, new Authenticator() {

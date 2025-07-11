@@ -25,7 +25,7 @@
     <header class="header">
         <div class="container header-container">
             <!--Logo-->
-            <a href="./index.jsp" class="logo">
+            <a href="./getProducts" class="logo">
                 <img src="./assets/images/logo.webp" alt="Logo">
                 <span class="logo-text">电子商城销售管理系统</span>
             </a>
