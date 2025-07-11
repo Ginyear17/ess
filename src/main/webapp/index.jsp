@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="./assets/css/click-appears.css">
     <link rel="stylesheet" href="./assets/css/product-posts.css">
     <link rel="stylesheet" href="./assets/css/orders.css">
+    <link rel="stylesheet" href="./assets/css/search.css">
 
 </head>
 <body>
@@ -282,6 +283,19 @@
         </div>
     </div>
 
+    <!-- 搜索模态框 -->
+    <div id="search-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>搜索商品</h2>
+            <div class="search-form">
+                <input type="text" id="search-input" placeholder="输入商品名称...">
+                <button type="button" id="search-submit-btn">搜索</button>
+            </div>
+            <div id="search-message" class="message"></div>
+        </div>
+    </div>
+
 
     <main class="main">
         <div class="main-card">
@@ -480,5 +494,6 @@
     <script src="assets/js/category.js"></script>
     <script src="assets/js/orders.js"></script>
     <script src="assets/js/profile.js"></script>
+    <script src="assets/js/search.js"></script>
 </body>
 </html>

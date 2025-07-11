@@ -85,8 +85,3 @@ if (savedTheme === 'dark') {
   themeIcon.className = 'fas fa-moon';
 }
 
-// Search functionality
-const searchBtn = document.querySelector('.search-btn');
-searchBtn.addEventListener('click', () => {
-  alert('搜索功能将在这里实现');
-});
